@@ -1,0 +1,78 @@
+/* css/search.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.search-box, .results-box {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.greeting {
+    text-align: center;
+}
+
+.greeting h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.greeting h2 {
+    margin-top: 0;
+    color: #555;
+}
+
+.search-form, .results {
+    margin-top: 20px;
+}
+
+.search-form label {
+    display: block;
+    margin-top: 10px;
+}
+
+.search-form input[type="text"],
+.search-form input[type="date"],
+.search-form select,
+.search-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-form input[type="submit"] {
+    background-color: #76a4a3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form input[type="submit"]:hover {
+    background-color: #577979;
+}
+
+.results ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.results li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.results h3 {
+    margin: 0 0 10px;
+}
