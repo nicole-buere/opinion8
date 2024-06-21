@@ -1,0 +1,95 @@
+/* css/register.css */
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+@font-face {
+    font-family: "Geist";
+    src: url("https://pham.codes/d/GeistVF.woff2") format("woff2");
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #76a4a3;
+    margin: 0;
+    padding: 0;
+}
+
+.register-box {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 775px;
+    background-color: #dee3e3;
+}
+
+.greeting h1 {
+    margin-left: 130px;
+    font-family: "Geist";
+    font-size: 65px;
+    margin-top: 20px;
+}
+
+.greeting h2 {
+    font-family: 'Inter';
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+.greeting p {
+    font-family: 'Inter';
+    font-size: 16px;
+    color: #6c7373;
+    margin-left: 20px;
+}
+
+.credentials {
+    margin-left: 20px;
+}
+
+.credentials label {
+    display: block;
+    margin-top: 40px;
+    font-family: 'Inter';
+    margin-bottom: 10px;
+}
+
+.credentials input[type="text"],
+.credentials input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-family: 'Inter';
+    box-sizing: border-box;
+}
+
+.credentials input[type="submit"] {
+    margin-left: 30px;
+    width: 500px;
+    padding: 10px;
+    background-color: #76a4a3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.credentials input[type="submit"]:hover {
+    background-color: #577979;
+}
+
+.credentials #logintext {
+    margin-top: 50px;
+    margin-right: 60px;
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #6c7373;
+    text-align: center;
+}
+
+.credentials #logintext a {
+    color: #577979;
+    text-decoration: none;
+}

@@ -1,0 +1,91 @@
+/* css/timeline.css */
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #76a4a3;
+    margin: 0;
+    padding: 0;
+}
+
+.timeline-box {
+    width: 800px;
+    margin: auto;
+    background-color: #dee3e3;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.timeline-header h1 {
+    font-family: 'Inter';
+    text-align: center;
+    color: #333;
+}
+
+.timeline-content .post {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.timeline-content .post h2 {
+    font-family: 'Inter';
+    color: #333;
+}
+
+.timeline-content .post p {
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #333;
+    padding: 5px 0;
+}
+
+.timeline-content .comments {
+    margin-top: 10px;
+}
+
+.timeline-content .comment {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.timeline-content .comment p {
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #333;
+}
+
+.timeline-content .comment-actions {
+    font-size: 12px;
+}
+
+.timeline-content form {
+    margin-top: 10px;
+}
+
+.timeline-content form input[type='text'] {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter';
+}
+
+.timeline-content form input[type='submit'] {
+    padding: 10px 20px;
+    background-color: #76a4a3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.timeline-content form input[type='submit']:hover {
+    background-color: #577979;
+}
