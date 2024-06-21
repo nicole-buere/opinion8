@@ -7,64 +7,55 @@
 </head>
 <body>
     <div class="timeline-box">
-        <div class="timeline-header">
-            <h1>Timeline</h1>
+        <div class="header">
+            <h1>Opinion8</h1>
+            <h2>Timeline</h2>
+            <p>Stay updated with the latest debates, polls, and comments.</p>
+            <a href="search.php" class="search-link">Advanced Search</a>
         </div>
-        
-        <div class="timeline-content">
-            <!-- Fetch and display timeline posts from the database -->
+
+        <div class="content">
             <?php
-            session_start();
-            $conn = new mysqli('localhost', 'root', '', 'opinion8');
-            
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            
-            $sql = "SELECT * FROM posts ORDER BY created_at DESC";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<div class='post'>";
-                    echo "<h2>" . $row["title"] . "</h2>";
-                    echo "<p>" . $row["content"] . "</p>";
-                    echo "<p><small>Posted by: " . $row["username"] . " on " . $row["created_at"] . "</small></p>";
-                    echo "<div class='comments'>";
-                    
-                    $postId = $row["id"];
-                    $commentSql = "SELECT * FROM comments WHERE post_id='$postId' ORDER BY created_at DESC";
-                    $commentResult = $conn->query($commentSql);
-                    
-                    if ($commentResult->num_rows > 0) {
-                        while($commentRow = $commentResult->fetch_assoc()) {
-                            echo "<div class='comment'>";
-                            echo "<p>" . $commentRow["username"] . ": " . $commentRow["comment"] . "</p>";
-                            echo "<div class='comment-actions'>";
-                            echo "<a href='#'>Reply</a> | ";
-                            echo "<a href='#'>Upvote</a> | ";
-                            echo "<a href='#'>Downvote</a>";
-                            echo "</div>";
-                            echo "</div>";
-                        }
-                    } else {
-                        echo "<p>No comments yet.</p>";
-                    }
-                    
-                    echo "</div>";
-                    echo "<form action='../actions/comment_action.php' method='post'>";
-                    echo "<input type='hidden' name='post_id' value='" . $postId . "'>";
-                    echo "<input type='text' name='comment' placeholder='Add a comment'>";
-                    echo "<input type='submit' value='Comment'>";
-                    echo "</form>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>No posts available.</p>";
-            }
-            
-            $conn->close();
+            // Fetch debates, comments, and polls from the database
+            include('../includes/db.php');
+
+            $query = "SELECT * FROM content ORDER BY date DESC";
+            $result = $conn->query($query);
+
+            if ($result->num_rows > 0):
+                while ($row = $result->fetch_assoc()):
             ?>
+                <div class="post">
+                    <h3><?php echo htmlspecialchars($row['topic']); ?></h3>
+                    <p>Date: <?php echo htmlspecialchars($row['date']); ?></p>
+                    <p>Type: <?php echo htmlspecialchars($row['type']); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
+                    <?php if ($row['type'] === 'poll'): ?>
+                        <!-- Display poll options -->
+                        <div class="poll-options">
+                            <?php
+                            $poll_id = $row['id'];
+                            $poll_query = "SELECT * FROM poll_options WHERE poll_id = ?";
+                            $poll_stmt = $conn->prepare($poll_query);
+                            $poll_stmt->bind_param("i", $poll_id);
+                            $poll_stmt->execute();
+                            $poll_result = $poll_stmt->get_result();
+
+                            while ($poll_option = $poll_result->fetch_assoc()):
+                            ?>
+                                <div class="poll-option">
+                                    <input type="radio" name="poll_<?php echo $poll_id; ?>" value="<?php echo $poll_option['id']; ?>" id="poll_option_<?php echo $poll_option['id']; ?>">
+                                    <label for="poll_option_<?php echo $poll_option['id']; ?>"><?php echo htmlspecialchars($poll_option['option_text']); ?></label>
+                                </div>
+                            <?php endwhile; ?>
+                            <button class="vote-button" data-poll-id="<?php echo $poll_id; ?>">Vote</button>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; else: ?>
+                <p>No content available.</p>
+            <?php endif; ?>
+            <?php $conn->close(); ?>
         </div>
     </div>
 </body>
