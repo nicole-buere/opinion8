@@ -86,7 +86,7 @@ body {
     cursor: pointer;
 }
 
-.credentials input[type="submit"]:hover {
+.credentials input[type="submit"]:hover { 
     background-color: #577979;
 }
 
