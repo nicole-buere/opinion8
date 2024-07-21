@@ -1,19 +1,28 @@
-<!-- views/timeline.php -->
+<!-- homepage of the site -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Opinion8 - Timeline</title>
     <link rel="stylesheet" href="../css/timeline.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
-    <div class="timeline-box">
-        <div class="header">
-            <h1>Opinion8</h1>
-            <h2>Timeline</h2>
-            <p>Stay updated with the latest debates, polls, and comments.</p>
-            <a href="search.php" class="search-link">Advanced Search</a>
+    <div class="header">
+        <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
+        <div class="search-container">
+            <div class="search-bar-wrapper">
+                <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
+                <input type="text" placeholder="Search..." class="search-bar">
+                <a href="search.php" class="search-link">
+                    <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
+                </a>
+            </div>
         </div>
+        <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
+    </div>
 
+
+    <div class= "timeline-box">
         <div class="content">
             <?php
             // Fetch debates, comments, and polls from the database

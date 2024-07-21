@@ -1,60 +1,106 @@
-/* css/register.css */
+/*css for register page */
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
-@font-face {
-    font-family: "Geist";
-    src: url("https://pham.codes/d/GeistVF.woff2") format("woff2");
-}
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #76a4a3;
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    background: linear-gradient(45deg, #232da7, #c46abd, #5cd2ad, #232da7, #c46abd, #5cd2ad);
+    background-size: 600% 600%;
+    animation: gradientWave 20s ease infinite;
+}
+
+@keyframes gradientWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .register-box {
     display: flex;
     flex-direction: column;
-    width: 600px;
-    height: 775px;
+    width: 650px;
+    height: auto;
     background-color: #dee3e3;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.greeting {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .greeting h1 {
-    margin-left: 130px;
-    font-family: "Geist";
-    font-size: 65px;
-    margin-top: 20px;
-}
-
-.greeting h2 {
     font-family: 'Inter';
-    font-size: 22px;
-    margin-left: 20px;
+    font-size: 35px;
+    margin: 0;
 }
 
 .greeting p {
     font-family: 'Inter';
     font-size: 16px;
     color: #6c7373;
-    margin-left: 20px;
 }
 
 .credentials {
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.input-column {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.role-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.role-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+.role-options label {
+    margin-right: 20px;
 }
 
 .credentials label {
-    display: block;
-    margin-top: 40px;
     font-family: 'Inter';
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .credentials input[type="text"],
-.credentials input[type="password"] {
-    width: calc(100% - 20px);
+.credentials input[type="password"],
+.credentials input[type="email"],
+.credentials select {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -65,8 +111,7 @@ body {
 }
 
 .credentials input[type="submit"] {
-    margin-left: 30px;
-    width: 500px;
+    width: 100%;
     padding: 10px;
     background-color: #76a4a3;
     color: white;
@@ -74,6 +119,8 @@ body {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .credentials input[type="submit"]:hover {
@@ -81,8 +128,7 @@ body {
 }
 
 .credentials #logintext {
-    margin-top: 50px;
-    margin-right: 60px;
+    margin-top: 20px;
     font-family: 'Inter';
     font-size: 14px;
     color: #6c7373;
@@ -93,3 +139,4 @@ body {
     color: #577979;
     text-decoration: none;
 }
+

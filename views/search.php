@@ -1,4 +1,4 @@
-<!-- views/search.php -->
+<!-- when advanced search is clicked page will navigate to this (advance search page) -->
 <!DOCTYPE html>
 <html>
 <head>
