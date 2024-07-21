@@ -45,6 +45,7 @@
     </div>
 
     <script>
+        // script for the show/hide button (eye icon) for password
         document.getElementById('toggle-password').addEventListener('click', function() {
             var passwordField = document.getElementById('password');
             var toggleIcon = document.getElementById('toggle-icon');
