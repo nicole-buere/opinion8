@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Opinion8 - Timeline</title>
+    <title>Opinion8 - Homepage</title>
     <link rel="stylesheet" href="../css/timeline.css">
     <link rel="stylesheet" href="../css/header.css">
 </head>
