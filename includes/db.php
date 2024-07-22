@@ -2,8 +2,13 @@
 // includes/db.php
 
 $servername = "localhost";
+<<<<<<< Updated upstream
 $username = "root"; // Your MySQL username
 $password = ""; // Your MySQL password
+=======
+$username = "root"; 
+$password = ""; // no password by default
+>>>>>>> Stashed changes
 $dbname = "opinion8_db"; // The database name
 
 // Create connection

@@ -1,4 +1,4 @@
-<!-- homepage of the site -->
+<!-- homepage of the site (for user) -->
 <!DOCTYPE html>
 <html>
 <head>
