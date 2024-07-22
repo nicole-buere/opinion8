@@ -2,9 +2,9 @@
 // includes/db.php
 
 $servername = "localhost";
-$username = "root";
-$password = ""; // Assuming default XAMPP setup with no password
-$dbname = "opinion8";
+$username = "root"; // Your MySQL username
+$password = ""; // Your MySQL password
+$dbname = "opinion8_db"; // The database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -14,3 +14,4 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 ?>
+

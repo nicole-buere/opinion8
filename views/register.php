@@ -1,6 +1,5 @@
 <!--this is the register page (user creates an account)-->
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
     <title>Opinion8 - Register</title>
@@ -53,5 +52,46 @@
             </p>
         </div>
     </div>
+
+    <!-- The Modal -->
+    <div id="errorModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to get query parameter by name
+        function getQueryParam(name) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Get the error message from query parameters
+        let errorMessage = getQueryParam('error');
+        if (errorMessage) {
+            // Display the modal
+            document.getElementById('errorMessage').textContent = errorMessage;
+            document.getElementById('errorModal').style.display = 'block';
+        }
+
+        // Get the <span> element that closes the modal
+        let span = document.getElementsByClassName('close')[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('errorModal')) {
+                document.getElementById('errorModal').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
+
