@@ -22,7 +22,6 @@ body {
     margin-bottom: 30px;
     width: 1500px;
     height: 250px;
-    background: beige;
     background: linear-gradient(45deg, #232da7, #c46abd, #5cd2ad, #232da7, #c46abd, #5cd2ad);
     background-size: 600% 600%;
     animation: gradientWave 20s ease infinite;
