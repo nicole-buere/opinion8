@@ -17,7 +17,9 @@
                 </a>
             </div>
         </div>
-        <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
+        <a href="user_settings.php" title="User Settings">  
+            <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
+        </a>
     </div>
 
     <div class="content-box">
