@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
-    <div class="header">
+<div class="header">
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
+        <a href="admin_homepage.php" class="home-link">Home</a>
         <div class="search-container">
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
@@ -82,5 +83,3 @@
     </div>
 </body>
 </html>
-
-test

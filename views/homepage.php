@@ -1,4 +1,3 @@
-<!-- homepage of the site (for user) -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +6,12 @@
     <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
-    <div class="header">
+<div class="header">
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
+        <a href="homepage.php" class="home-link">Home</a>
         <div class="search-container">
             <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
+                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
                 <input type="text" placeholder="Search..." class="search-bar">
                 <a href="search.php" class="search-link">
                     <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
@@ -21,8 +21,7 @@
         <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
     </div>
 
-
-    <div class= "timeline-box">
+    <div class="timeline-box">
         <div class="content">
             <?php
             // Fetch debates, comments, and polls from the database
