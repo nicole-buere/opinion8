@@ -1,12 +1,12 @@
-/*css for register page */
+/* CSS for register page */
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
-body {
+html, body {
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    overflow: hidden; /* Prevent scrollbars from appearing */
     background: linear-gradient(45deg, #232da7, #c46abd, #5cd2ad, #232da7, #c46abd, #5cd2ad);
     background-size: 600% 600%;
     animation: gradientWave 20s ease infinite;
@@ -30,9 +30,7 @@ body {
     width: 650px;
     height: auto;
     background-color: #dee3e3;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 90px;
+    margin: 90px auto;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -127,22 +125,30 @@ body {
     background-color: #577979;
 }
 
-.credentials #logintext {
-    margin-top: 20px;
+/* Center-aligned text links */
+.credentials #logintext,
+.credentials #aboutus {
     font-family: 'Inter';
-    font-size: 14px;
-    color: #6c7373;
-    text-align: center;
+    font-size: 14px; /* Same as in login.css */
+    color: #656b6b;
+    text-align: center; /* Center-align the text */
+    margin: 10px 0; /* Space above and below the text */
+    width: 100%; /* Ensure p takes full width to center align text */
 }
 
-.credentials #logintext a {
-    color: #577979;
+.credentials #logintext a,
+.credentials #aboutus a {
+    color: #54a189;
     text-decoration: none;
+    font-weight: bold;
 }
 
+.credentials #logintext a:hover,
+.credentials #aboutus a:hover {
+    text-decoration: underline;
+}
 
-/* this is for pop up message when there's an error */
-/* please modify this */
+/* This is for the popup message when there's an error */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -155,6 +161,7 @@ body {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
@@ -162,15 +169,22 @@ body {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
+
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
+
 .close:hover,
 .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Ensure consistent font for all text elements */
+* {
+    font-family: 'Inter', sans-serif;
 }

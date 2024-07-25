@@ -113,17 +113,32 @@ html, body {
     background-color: #577979;
 }
 
-.credentials #registertext {
-    margin-top: 40px;
+/* Center-aligned text links */
+.credentials p {
     font-family: 'Inter';
     font-size: 14px;
     color: #656b6b;
-    margin-left: 78px;
+    text-align: center; /* Center-align the text */
+    margin: 10px 0; /* Space between text and form elements */
+    width: 100%; /* Ensure p takes full width to center align text */
 }
 
-.credentials #registertext a {
+.credentials #registertext,
+.credentials #aboutus {
+    text-align: center; /* Ensure text is centered */
+    margin: 20px 0; /* Space above and below the text */
+}
+
+.credentials #registertext a,
+.credentials #aboutus a {
     color: #54a189;
     text-decoration: none;
+    font-weight: bold;
+}
+
+.credentials #registertext a:hover,
+.credentials #aboutus a:hover {
+    text-decoration: underline;
 }
 
 .right-box {
@@ -164,4 +179,9 @@ html, body {
 
 .password-container button:hover {
     background-color: transparent;
+}
+
+/* Ensure consistent font for all text elements */
+* {
+    font-family: 'Inter', sans-serif;
 }
