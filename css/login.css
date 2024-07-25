@@ -4,9 +4,9 @@
 html, body {
     width: 100%;
     height: 100%;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    overflow: hidden; /* Prevent scrollbars from appearing */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     background: linear-gradient(45deg, #232da7, #c46abd, #5cd2ad, #232da7, #c46abd, #5cd2ad);
     background-size: 600% 600%;
     animation: gradientWave 20s ease infinite;
@@ -29,7 +29,36 @@ html, body {
     flex-direction: row;
     width: 100%;
     height: 100%;
+    position: relative;
 }
+
+.text-overlay {
+    position: absolute;
+    top: 22%; /* Adjust this value to move the text further down */
+    left: 48%; /* Adjusted this value to move the text a little to the left */
+    transform: translateX(-50%);
+    color: white;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start (left) */
+    max-width: 90%;
+}
+
+.text-overlay .title {
+    font-size: 36px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0 0 10px 0; /* No extra margin to the left */
+}
+
+.text-overlay .subtitle {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 0 0; /* No extra margin to the left */
+}
+
+
 
 .login-box {
     display: flex;
@@ -37,6 +66,8 @@ html, body {
     width: 450px;
     height: 775px;
     background-color: #dee3e3;
+    z-index: 1; /* Ensure it is above the background */
+    margin: auto; /* Center it horizontally */
 }
 
 .logo {
@@ -68,7 +99,7 @@ html, body {
 
 .credentials label {
     display: flex;
-    align-items: center; /* Align items vertically */
+    align-items: center;
     font-family: 'Inter';
     font-size: 16px;
     margin-top: 30px;
@@ -113,20 +144,19 @@ html, body {
     background-color: #577979;
 }
 
-/* Center-aligned text links */
 .credentials p {
     font-family: 'Inter';
     font-size: 14px;
     color: #656b6b;
-    text-align: center; /* Center-align the text */
-    margin: 10px 0; /* Space between text and form elements */
-    width: 100%; /* Ensure p takes full width to center align text */
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
 }
 
 .credentials #registertext,
 .credentials #aboutus {
-    text-align: center; /* Ensure text is centered */
-    margin: 20px 0; /* Space above and below the text */
+    text-align: center;
+    margin: 20px 0;
 }
 
 .credentials #registertext a,
@@ -181,7 +211,22 @@ html, body {
     background-color: transparent;
 }
 
-/* Ensure consistent font for all text elements */
 * {
     font-family: 'Inter', sans-serif;
+}
+
+.text-overlay .info-button {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1b9997;
+    background-color: #fff; /* Button color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    display: inline-block;
+}
+
+.text-overlay .info-button:hover {
+    background-color: #577979; /* Darker button color on hover */
 }

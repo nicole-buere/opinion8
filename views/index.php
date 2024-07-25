@@ -6,6 +6,11 @@
 </head>
 <body>
     <div class="login-page">
+        <div class="text-overlay">
+            <h1 class="title">Escape the chaos of social media</h1>
+            <p class="subtitle">Engage in respectful, informed debates on topics that matter</p>
+            <a href="howitworks.php" class="info-button">How does Opinion8 work?</a>
+        </div>
         <div class="login-box">
             <div class="greeting">
                 <img src="../assets/logo.png" alt="Logo" class="logo">
@@ -47,7 +52,7 @@
     </div>
 
     <script>
-        // script for the show/hide button (eye icon) for password
+        // Script for the show/hide button (eye icon) for password
         document.getElementById('toggle-password').addEventListener('click', function() {
             var passwordField = document.getElementById('password');
             var toggleIcon = document.getElementById('toggle-icon');
