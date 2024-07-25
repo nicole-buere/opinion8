@@ -1,0 +1,79 @@
+/* about_us.css */
+
+body {
+    font-family: Arial, sans-serif; /* Same font as the other pages */
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.about-us-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.about-us-header {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #0073e6;
+}
+
+.about-us-content {
+    line-height: 1.6;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.team-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.team-member {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+}
+
+.team-member img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    font-size: 22px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.team-member p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #0073e6;
+}
+
+.footer a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

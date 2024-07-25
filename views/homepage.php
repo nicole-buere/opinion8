@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="../css/engagement_analytics.css">
 </head>
 <body>
-<div class="header">
+    <div class="header">
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <a href="homepage.php" class="home-link">Home</a>
+        <a href="about_us.php" class="about-link">About Us</a>
         <div class="search-container">
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search icon" class="search-icon">

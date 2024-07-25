@@ -1,5 +1,3 @@
-<!-- this is the log in page -->
-<!-- this is the log in page -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +33,9 @@
                     <input type="submit" value="Login" id="login">
                     <p id="registertext">
                         Don't have an account? <a href="register.php">Register</a>
+                    </p>
+                    <p id="aboutus">
+                        Want to learn more? <a href="about_us.php">About Us</a>
                     </p>
                 </form>
             </div>

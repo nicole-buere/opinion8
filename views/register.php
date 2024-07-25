@@ -1,4 +1,4 @@
-<!--this is the register page (user creates an account)-->
+<!-- this is the register page (user creates an account) -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +50,9 @@
             <p id="logintext">
                 Already have an account? <a href="index.php">Login</a>
             </p>
+            <p id="aboutus">
+                Want to learn more? <a href="about_us.php">About Us</a>
+            </p>
         </div>
     </div>
 
@@ -94,4 +97,3 @@
     </script>
 </body>
 </html>
-
