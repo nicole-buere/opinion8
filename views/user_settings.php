@@ -2,6 +2,11 @@
 session_start();
 include '../includes/db.php'; // Ensure the correct path
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login if the user is not logged in
+    exit();
+}
+
 $userId = $_SESSION['user_id'];
 $query = "SELECT username, role, email, bio, interests FROM userdb WHERE userID = ?";
 $stmt = $conn->prepare($query);

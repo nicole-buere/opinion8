@@ -28,13 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `userdb` (
-  `userID` int(11) NOT NULL DEFAULT 1,
+  `userID` int(11) NOT NULL AUTO_INCREMENT,
   `role` enum('User','Admin') NOT NULL,
   `email` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(100) NOT NULL,
   `bio` text DEFAULT NULL,
-  `interests` text DEFAULT NULL
+  `interests` text DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -43,8 +45,8 @@ CREATE TABLE `userdb` (
 
 INSERT INTO `userdb` (`userID`, `role`, `email`, `username`, `password`, `bio`, `interests`) VALUES
 (1, 'Admin', 'nicole@gmail.com', 'admin_nicole', '$2y$10$dCtmaH8', NULL, NULL),
-(1, 'User', 'lightygmi@gmail.com', 'lygm', '$2y$10$WEOJamo', NULL, NULL),
-(1, 'Admin', 'admin@gmail.com', 'admintest', '$2y$10$U3nqN7E', NULL, NULL);
+(2, 'User', 'lightygmi@gmail.com', 'lygm', '$2y$10$WEOJamo', NULL, NULL),
+(3, 'Admin', 'admin@gmail.com', 'admintest', '$2y$10$U3nqN7E', NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
