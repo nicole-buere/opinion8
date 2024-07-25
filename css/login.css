@@ -230,3 +230,20 @@ html, body {
 .text-overlay .info-button:hover {
     background-color: #577979; /* Darker button color on hover */
 }
+
+/* Existing styles... */
+
+#links {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.text-link {
+    color: #000000; /* Adjust to match your site's color scheme */
+    text-decoration: none;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
+

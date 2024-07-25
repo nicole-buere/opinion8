@@ -39,8 +39,10 @@
                     <p id="registertext">
                         Don't have an account? <a href="register.php">Register</a>
                     </p>
-                    <p id="aboutus">
-                        Want to learn more? <a href="about_us.php">About Us</a>
+                    <p id="links">
+                        <a href="about_us.php" class="text-link">About Us</a> | 
+                        <a href="contact_us.php" class="text-link">Contact Us</a> | 
+                        <a href="privacy_policy.php" class="text-link">Privacy Policy</a>
                     </p>
                 </form>
             </div>
@@ -52,7 +54,7 @@
     </div>
 
     <script>
-        // Script for the show/hide button (eye icon) for password
+        // script for the show/hide button (eye icon) for password
         document.getElementById('toggle-password').addEventListener('click', function() {
             var passwordField = document.getElementById('password');
             var toggleIcon = document.getElementById('toggle-icon');

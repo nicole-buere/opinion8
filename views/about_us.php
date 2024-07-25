@@ -41,9 +41,7 @@
             </div>
         </div>
 
-        <div class="footer">
-            <p>Want to join our team? <a href="contact.php">Contact Us</a></p>
-        </div>
+ 
     </div>
 </body>
 </html>
