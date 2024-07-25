@@ -14,7 +14,8 @@
             <section>
                 <p>We’d love to hear from you! If you have any questions or feedback, feel free to use the form below.</p>
                 <form action="../actions/contact_action.php" method="post">
-                    <label for="name">Your Name *</label>
+                    
+                <label for="name">Your Name *</label>
                     <input type="text" name="name" id="name" required>
                     
                     <label for="email">Your Email *</label>

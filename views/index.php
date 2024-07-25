@@ -9,6 +9,10 @@
         <div class="text-overlay">
             <h1 class="title">Escape the chaos of social media</h1>
             <p class="subtitle">Engage in respectful, informed debates on topics that matter</p>
+            <p class="subtitle">Our platform fosters respectful, intellectual debate on current</p>
+            <p class="subtitle">events and pop culture. Join the conversation and sharpen</p>
+            <p class="subtitle">your mind.</p>
+            
             <a href="howitworks.php" class="info-button">How does Opinion8 work?</a>
         </div>
         <div class="login-box">

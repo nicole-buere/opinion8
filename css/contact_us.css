@@ -1,13 +1,18 @@
+/* Existing styles */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4; /* Light background color */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .container {
-    max-width: 100%;
-    padding: 20px;
+    max-width: 100%; /* Ensure container takes full width */
+    padding: 0; /* Remove padding to avoid extra space */
+    flex: 1; /* Allow container to expand and push footer down */
 }
 
 header {
@@ -15,6 +20,9 @@ header {
     color: white;
     padding: 20px;
     text-align: center;
+    width: 100%; /* Ensure header spans the full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin: 0; /* Remove any default margin */
 }
 
 header h1 {
@@ -25,23 +33,49 @@ main {
     padding: 20px;
 }
 
+h2 {
+    color: #333;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #ddd;
+    width: 100%; /* Ensure footer spans the full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin: 0; /* Remove any default margin */
+    position: relative;
+    bottom: 0;
+}
+
+/* New styles for form spacing */
 form {
     display: flex;
     flex-direction: column;
 }
 
 label {
-    margin-top: 10px;
+    margin-top: 15px; /* Space between label and previous element */
+    margin-bottom: 5px; /* Space between label and input */
+    font-weight: bold;
 }
 
 input[type="text"], input[type="email"], textarea {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+    padding: 10px;
+    margin-bottom: 20px; /* Space between form fields */
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 textarea {
     height: 100px;
+    resize: vertical; /* Allow vertical resizing */
 }
 
 input[type="submit"] {
@@ -57,17 +91,6 @@ input[type="submit"]:hover {
     background-color: #5c8c8a;
 }
 
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #ddd;
-}
-
-footer a {
-    color: #76a4a3;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
+input[type="file"] {
+    margin-top: 5px;
 }
