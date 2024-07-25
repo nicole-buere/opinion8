@@ -1,7 +1,9 @@
 /* about_us.css */
 
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
 body {
-    font-family: Arial, sans-serif; /* Same font as the other pages */
+    font-family: 'Inter', sans-serif; /* Updated font to Inter */
     background-color: #f0f4f8;
     color: #333;
     margin: 0;
@@ -13,18 +15,24 @@ body {
     margin: 0 auto;
     padding: 50px 20px;
     text-align: center;
+    background-color: #dee3e3; /* White background/color */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .about-us-header {
     font-size: 36px;
     margin-bottom: 20px;
-    color: #0073e6;
+    color: #232da7; /* Dark blue text */
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .about-us-content {
-    line-height: 1.6;
+    line-height: 1.8; /* Slightly increased line height for better readability */
     font-size: 18px;
     margin-bottom: 40px;
+    color: #232da7; /* Dark blue text */
 }
 
 .team-section {
@@ -36,11 +44,17 @@ body {
 
 .team-member {
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     max-width: 300px;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .team-member img {
@@ -48,12 +62,13 @@ body {
     width: 120px;
     height: 120px;
     margin-bottom: 15px;
+    border: 3px solid #76A4A3; /* Green border */
 }
 
 .team-member h3 {
     font-size: 22px;
     margin: 10px 0;
-    color: #333;
+    color: #c46abd; /* Pink color for names */
 }
 
 .team-member p {
@@ -65,11 +80,11 @@ body {
 .footer {
     margin-top: 40px;
     text-align: center;
-    color: #0073e6;
+    color: #76A4A3; /* Green color for footer text */
 }
 
 .footer a {
-    color: #0073e6;
+    color: #76A4A3; /* Green color for links */
     text-decoration: none;
     font-weight: bold;
 }
@@ -77,4 +92,3 @@ body {
 .footer a:hover {
     text-decoration: underline;
 }
-
