@@ -15,27 +15,27 @@
         
         <div class="team-section">
             <div class="team-member">
-                <img src="../assets/team_member1.jpg" alt="Team Member">
+                <img src="../assets/member1.jpg" alt="Team Member">
                 <h3>Nicole Buere</h3>
                 <p>Leader</p>
             </div>
             <div class="team-member">
-                <img src="../assets/team_member2.jpg" alt="Team Member">
+                <img src="../assets/member2.jpg" alt="Team Member">
                 <h3>Angelica Simpao</h3>
                 <p>Member</p>
             </div>
             <div class="team-member">
-                <img src="../assets/team_member2.jpg" alt="Team Member">
+                <img src="../assets/member3.jpg" alt="Team Member">
                 <h3>Hannah Cosing</h3>
                 <p>Member</p>
             </div>
             <div class="team-member">
-                <img src="../assets/team_member2.jpg" alt="Team Member">
+                <img src="../assets/member4.jpg" alt="Team Member">
                 <h3>Luis Vendiola</h3>
                 <p>Member</p>
             </div>
             <div class="team-member">
-                <img src="../assets/team_member2.jpg" alt="Team Member">
+                <img src="../assets/member5.jpg" alt="Team Member">
                 <h3>Miguel Cancio</h3>
                 <p>Member</p>
             </div>
