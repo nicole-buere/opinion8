@@ -4,6 +4,7 @@
     <title>Opinion8 - Homepage</title>
     <link rel="stylesheet" href="../css/timeline.css">
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/engagement_analytics.css">
 </head>
 <body>
 <div class="header">
@@ -32,7 +33,35 @@
 
             if ($result->num_rows > 0):
                 while ($row = $result->fetch_assoc()):
+                    $postId = $row['id'];
+    
+                    // Fetch the number of comments, likes, and poll engagements
+                    // Added PHP Code to Fetch Engagement Data
+                    $commentsQuery = "SELECT COUNT(*) AS comments_count FROM comments WHERE post_id = ?";
+                    $likesQuery = "SELECT COUNT(*) AS likes_count FROM likes WHERE post_id = ?";
+                    $pollsQuery = "SELECT COUNT(*) AS polls_count FROM poll_responses WHERE post_id = ?";
+    
+                    $commentsStmt = $conn->prepare($commentsQuery);
+                    $likesStmt = $conn->prepare($likesQuery);
+                    $pollsStmt = $conn->prepare($pollsQuery);
+    
+                    $commentsStmt->bind_param('i', $postId);
+                    $likesStmt->bind_param('i', $postId);
+                    $pollsStmt->bind_param('i', $postId);
+    
+                    $commentsStmt->execute();
+                    $likesStmt->execute();
+                    $pollsStmt->execute();
+    
+                    $commentsResult = $commentsStmt->get_result()->fetch_assoc();
+                    $likesResult = $likesStmt->get_result()->fetch_assoc();
+                    $pollsResult = $pollsStmt->get_result()->fetch_assoc();
+    
+                    $commentsCount = $commentsResult['comments_count'];
+                    $likesCount = $likesResult['likes_count'];
+                    $pollsCount = $pollsResult['polls_count'];
             ?>
+                
                 <div class="post">
                     <h3><?php echo htmlspecialchars($row['topic']); ?></h3>
                     <p>Date: <?php echo htmlspecialchars($row['date']); ?></p>
@@ -59,6 +88,22 @@
                             <button class="vote-button" data-poll-id="<?php echo $poll_id; ?>">Vote</button>
                         </div>
                     <?php endif; ?>
+                    <!-- Added HTML to Display Engagement Analytics -->
+                    <div class="analytics-section">
+                        <h2>Engagement Overview</h2>
+                        <div class="analytics-item">
+                            <span class="analytics-label">Comments:</span>
+                            <span class="analytics-value"><?php echo $commentsCount; ?></span>
+                        </div>
+                        <div class="analytics-item">
+                            <span class="analytics-label">Likes:</span>
+                            <span class="analytics-value"><?php echo $likesCount; ?></span>
+                        </div>
+                        <div class="analytics-item">
+                            <span class="analytics-label">Poll Responses:</span>
+                            <span class="analytics-value"><?php echo $pollsCount; ?></span>
+                        </div>
+                    </div>
                 </div>
             <?php endwhile; else: ?>
                 <p>No content available.</p>
