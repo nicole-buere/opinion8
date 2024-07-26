@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discussions</title>
+    <script>
+        function loadDiscussions() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "fetch_discussions.php", true);
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    var discussions = JSON.parse(xhr.responseText);
+                    var output = "";
+                    for (var i in discussions) {
+                        output += "<h2>" + discussions[i].title + "</h2>";
+                        output += "<img src='" + discussions[i].thumbnail + "' alt='Thumbnail'>";
+                        output += "<p>" + discussions[i].description + "</p>";
+                        output += "<p><em>Created on: " + discussions[i].date_created + "</p>";
+                    }
+                    document.getElementById("discussion-list").innerHTML = output;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body onload="loadDiscussions()">
+    <h1>Discussion Topics</h1>
+    <div id="discussion-list"></div>
+</body>
+</html>
