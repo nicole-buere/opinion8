@@ -1,74 +1,60 @@
-
-
-@import url(https://fonts.googleapis.com/css?family=Inter);
+/* header.css */
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     background-color: #76A4A3;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
- 
-.alt-logo {
-    height: 50px; /* Adjust as needed */
-    margin-right: 20px;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin: 0;
 }
 
-.home-link {
+.header .alt-logo {
+    max-width: 100px; /* Adjust as needed */
+}
+
+.header .home-link {
     color: white;
     text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
+    margin: 0 15px;
+    font-size: 16px;
 }
 
 .search-container {
     display: flex;
     align-items: center;
-    flex-grow: 1;
-    margin-left: 20px;
-    margin-right: 20px;
+    justify-content: center;
+    margin: 10px 0;
 }
 
 .search-bar-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.search-icon,
-.filter-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 24px; /* Adjust as needed */
-}
-
-.search-icon {
-    left: 10px;
-}
-
-.filter-icon {
-    right: 10px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .search-bar {
-    width: 100%;
-    padding: 10px 40px 10px 40px; /* Adjust padding for icons */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
+    border: none;
+    padding: 10px;
+    flex: 1;
 }
 
-.user-icon {
-    height: 24px; /* Adjust as needed */
-    cursor: pointer;
+.search-link .filter-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.icon.user-icon {
+    width: 24px;
+    height: 24px;
 }
 
