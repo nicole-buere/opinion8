@@ -1,0 +1,30 @@
+/* footer.css */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    background-color: #76A4A3; /* Match header color */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin: 0;
+    position: relative;
+    bottom: 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px; /* Space between links */
+    font-size: 14px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="../css/timeline.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/engagement_analytics.css">
+    <link rel="stylesheet" href="../css/footer.css"> <!-- Add this line for footer styles -->
 </head>
 <body>
     <div class="header">
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <a href="homepage.php" class="home-link">Home</a>
-        <a href="about_us.php" class="about-link">About Us</a>
         <div class="search-container">
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search icon" class="search-icon">
@@ -112,5 +112,11 @@
             <?php $conn->close(); ?>
         </div>
     </div>
+
+    <footer>
+        <a href="about_us.php">About Us</a> | 
+        <a href="contact_us.php">Contact Us</a> | 
+        <a href="privacy_policy.php">Privacy Policy</a>
+    </footer>
 </body>
 </html>
