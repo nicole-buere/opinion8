@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Inter);
+@import url('https://fonts.googleapis.com/css?family=Inter');
 
 body {
     width: 100%;
@@ -16,12 +16,10 @@ body {
 .greeting-box {
     display: flex;
     flex-direction: row;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    width: 1500px;
+    margin: 30px 15px;
+    width: 1450px;
     height: 250px;
+    margin-left: 40px;
     background: linear-gradient(45deg, #232da7, #c46abd, #5cd2ad, #232da7, #c46abd, #5cd2ad);
     background-size: 600% 600%;
     animation: gradientWave 20s ease infinite;
@@ -58,7 +56,7 @@ body {
     font-size: 16px;
     font-family: 'Inter';
     text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-    line-height: 1.5; /* line spacing */
+    line-height: 1.5; /* Line spacing */
 }
 
 .art {
@@ -70,11 +68,8 @@ body {
 .admin-tasks {
     display: flex;
     flex-direction: column;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 20px;
+    margin: 0 15px 30px;
+    padding: 0 20px;
     width: 1355px;
     height: 600px;
 }
@@ -85,6 +80,10 @@ body {
     font-family: 'Inter';
 }
 
+.intro{
+    display: flex;
+    margin-left: 40px;
+}
 .task-item {
     display: flex;
     flex-direction: row;
@@ -93,6 +92,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    margin-left: 40px;
     width: 920px;
     height: 95px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
@@ -117,7 +117,7 @@ body {
 
 .desc h3 {
     font-family: 'Inter';
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0.5rem;
 }
 
 .icon-button {
@@ -125,3 +125,5 @@ body {
     align-items: center;
     margin-left: auto;
 }
+
+

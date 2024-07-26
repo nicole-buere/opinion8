@@ -6,16 +6,18 @@
     <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
-<div class="header">
-        <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
-        <a href="admin_homepage.php" class="home-link">Home</a>
-        <div class="search-container">
-            <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
-                <input type="text" placeholder="Search..." class="search-bar">
-                <a href="search.php" class="search-link">
+    <!-- header -->
+    <div class="header">
+            <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
+            <a href="admin_homepage.php" class="home-link">Home</a>
+
+            <div class="search-container">
+                <div class="search-bar-wrapper">
+                    <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
+                    <input type="text" placeholder="Search..." class="search-bar">
+                    <a href="search.php" class="search-link">
                     <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
-                </a>
+                    </a>
             </div>
         </div>
         <a href="user_settings.php" title="User Settings">  
@@ -35,23 +37,25 @@
             </div>
         </div>
 
-        <!-- admin's tasks -->
-        <div class="admin-tasks">
-            <h2> What’s your next step? Choose an action to drive the debate forward! </h2>
+        <div class="intro">
+            <h2>What is your next step? Choose an action to drive the debate forward!</h2>
+        </div>
 
-            <!-- divider for creation of post -->
-            <div class="task-item create-post">
-                <div class="icon">
-                    <img src="../assets/create.png" alt="create icon">
-                </div>
-                <div class="desc">
-                    <h3>Create a Discussion</h3>
-                    <p>Curate a discussion that ignites minds and sparks meaningful engagement.</p>
-                </div>
-                <div class="icon-button">
-                    <img src="../assets/go-button.png" alt="create icon">
-                </div>
+        <!-- admin's tasks -->
+        <div class="task-item create-post">
+            <div class="icon">
+                <img src="../assets/create.png" alt="create icon">
             </div>
+            <div class="desc">
+                <h3>Create a Discussion</h3>
+                <p>Curate a discussion that ignites minds and sparks meaningful engagement.</p>
+            </div>
+            <div class="icon-button">
+                <a href="create_discussion.php" class="go-button">
+                <img src="../assets/go-button.png" alt="Go button">
+                </a>
+            </div>
+        </div>
 
             <div class="task-item manage-post">
                 <div class="icon">

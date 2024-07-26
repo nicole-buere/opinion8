@@ -1,4 +1,22 @@
-open XAMPP Control Panel and run Apache and MySQL
-go to http://localhost/phpmyadmin/ 
-if you want to get the latest version of the database, find opinion8_db then click export to get the sql file
-if you have the sql file click import and upload the sql file of the website's database
+# opinion8 
+- ITPROG Machine Problem 2024
+
+# setting up database
+- open XAMPP Control Panel and start Apache and MySQL
+- go to http://localhost/phpmyadmin/ 
+- create opinion8_db 
+- import the file "opinion8_db.sql" found in sql folder 
+
+# run the website
+- XAMPP should still be running Apache and MySQL
+- open your chosen browser
+- go to http://localhost/opinion8/views/
+
+# log in credentials
+- for admin
+- email: admin@email.com
+- password: 123
+
+- for user 
+- email: user@email.com
+- password:123
