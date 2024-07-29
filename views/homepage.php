@@ -17,7 +17,7 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0;
+            left: -20px; /* Move the dropdown menu 20px to the left */
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -189,6 +189,7 @@
                 event.preventDefault(); // Prevent default anchor behavior
                 const isVisible = dropdownMenu.style.display === 'block';
                 dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
             });
 
             // Close dropdown menu if clicking outside of it
