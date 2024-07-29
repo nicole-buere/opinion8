@@ -1,4 +1,4 @@
-/* header.css for*/
+/* header.css */
 
 body {
     margin: 0;
@@ -6,31 +6,32 @@ body {
 }
 
 .header {
+    display: flex;
+    align-items: center;
     background-color: #76A4A3;
     color: white;
-    padding: 20px 0;
-    text-align: center;
+    padding: 10px 20px;
     width: 100%;
     box-sizing: border-box; /* Include padding in width calculation */
-    margin: 0;
 }
 
 .header .alt-logo {
-    max-width: 100px; /* Adjust as needed */
+    max-height: 50px; /* Adjust as needed */
+    margin-right: 20px;
 }
 
 .header .home-link {
     color: white;
     text-decoration: none;
-    margin: 0 15px;
+    margin-right: 20px;
     font-size: 16px;
 }
 
 .search-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 10px 0;
+    flex-grow: 1;
+    margin-right: 20px;
 }
 
 .search-bar-wrapper {
@@ -39,12 +40,13 @@ body {
     background: #fff;
     border-radius: 20px;
     overflow: hidden;
+    flex-grow: 1;
 }
 
 .search-bar {
     border: none;
     padding: 10px;
-    flex: 1;
+    flex-grow: 1;
 }
 
 .search-link .filter-icon {

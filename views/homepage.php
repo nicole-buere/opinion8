@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/engagement_analytics.css">
     <link rel="stylesheet" href="../css/footer.css"> <!-- Add this line for footer styles -->
     <style>
-        /* CSS styles for dropdown menu */
+        /* Additional CSS styles for dropdown menu */
         .dropdown {
             position: relative;
             display: inline-block;
