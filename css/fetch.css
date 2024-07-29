@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+h1 {
+    text-align: center;
+    color: #444;
+    margin-top: 30px;
+    font-size: 2em;
+    font-weight: bold;
+}
+.discussion-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 15px;
+}
+.discussion-box {
+    background: linear-gradient(135deg, #ffffff, #f9f9f9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    padding: 20px;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.discussion-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+.discussion-thumbnail {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+    border: 2px solid #ddd;
+}
+.discussion-content {
+    flex: 1;
+}
+.discussion-title {
+    font-size: 1.6em;
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+}
+.discussion-description {
+    margin: 15px 0;
+    color: #555;
+    line-height: 1.6;
+}
+.discussion-date {
+    font-size: 0.9em;
+    color: #888;
+}
