@@ -150,6 +150,26 @@
             <?php endwhile; else: ?>
                 <p>No content available.</p>
             <?php endif; ?>
+            
+            <!-- Fetch and display discussion topics -->
+            <h2>Discussion Topics</h2>
+            <?php
+            $discussionQuery = "SELECT discussion_id, thumbnail, title, description, date_created FROM discussion";
+            $discussionResult = $conn->query($discussionQuery);
+
+            if ($discussionResult->num_rows > 0):
+                while ($discussion = $discussionResult->fetch_assoc()):
+            ?>
+                <div class="discussion">
+                    <h3><?php echo htmlspecialchars($discussion['title']); ?></h3>
+                    <img src="<?php echo htmlspecialchars($discussion['thumbnail']); ?>" alt="Thumbnail" width="100" height="100">
+                    <p><?php echo htmlspecialchars($discussion['description']); ?></p>
+                    <p><em>Created on: <?php echo htmlspecialchars($discussion['date_created']); ?></p>
+                </div>
+            <?php endwhile; else: ?>
+                <p>No discussion topics available.</p>
+            <?php endif; ?>
+
             <?php $conn->close(); ?>
         </div>
     </div>
