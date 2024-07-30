@@ -1,58 +1,46 @@
 <?php
-include '../includes/db.php';
 session_start();
+include '../includes/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'];
-    $userId = $_SESSION['user_id'];
+$userId = $_SESSION['user_id'];
 
-    switch ($action) {
-        case 'save_edit':
-            $field = $_POST['field'];
-            $newValue = $_POST['new_value'];
-            $query = "UPDATE userdb SET $field = ? WHERE userID = ?";
-            $stmt = $conn->prepare($query);
-            if ($stmt === false) {
-                die('Prepare failed: ' . htmlspecialchars($conn->error));
-            }
-            $stmt->bind_param('si', $newValue, $userId);
-            $stmt->execute();
-            echo json_encode(['status' => 'success']);
-            break;
+$profile_picture_url = $_POST['profile_picture_url'] ?? null;
+$username = $_POST['username'] ?? null;
+$email = $_POST['email'] ?? null;
+$bio = $_POST['bio'] ?? null;
+$interests = $_POST['interests'] ?? null;
+$new_password = $_POST['new_password'] ?? null;
 
-        case 'change_password':
-            $newPassword = password_hash($_POST['new_password'], PASSWORD_BCRYPT);
-            $query = "UPDATE userdb SET password = ? WHERE userID = ?";
-            $stmt = $conn->prepare($query);
-            if ($stmt === false) {
-                die('Prepare failed: ' . htmlspecialchars($conn->error));
-            }
-            $stmt->bind_param('si', $newPassword, $userId);
-            $stmt->execute();
-            echo json_encode(['status' => 'success']);
-            break;
+$query = "SELECT profile_picture, username, email, bio, interests, password FROM userdb WHERE userID = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('i', $userId);
+$stmt->execute();
+$stmt->bind_result($existing_profile_picture, $existing_username, $existing_email, $existing_bio, $existing_interests, $existing_password);
+$stmt->fetch();
+$stmt->close();
 
-        case 'save_profile_picture':
-            if (isset($_FILES['profile_picture'])) {
-                $profilePicture = $_FILES['profile_picture'];
-                $targetDir = "../uploads/";
-                $targetFile = $targetDir . basename($profilePicture['name']);
-                if (move_uploaded_file($profilePicture['tmp_name'], $targetFile)) {
-                    $query = "UPDATE userdb SET profile_picture = ? WHERE userID = ?";
-                    $stmt = $conn->prepare($query);
-                    if ($stmt === false) {
-                        die('Prepare failed: ' . htmlspecialchars($conn->error));
-                    }
-                    $stmt->bind_param('si', $targetFile, $userId);
-                    $stmt->execute();
-                    echo json_encode(['status' => 'success']);
-                } else {
-                    echo json_encode(['status' => 'error', 'message' => 'Failed to upload image.']);
-                }
-            }
-            break;
+$profile_picture_url = $profile_picture_url ?: $existing_profile_picture;
+$username = $username ?: $existing_username;
+$email = $email ?: $existing_email;
+$bio = $bio ?: $existing_bio;
+$interests = $interests ?: $existing_interests;
 
-        // Add more cases as needed
-    }
+if ($new_password) {
+    $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
+} else {
+    $hashed_password = $existing_password;
 }
+
+$query = "UPDATE userdb SET profile_picture = ?, username = ?, email = ?, bio = ?, interests = ?, password = ? WHERE userID = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('ssssssi', $profile_picture_url, $username, $email, $bio, $interests, $hashed_password, $userId);
+$stmt->execute();
+
+if ($stmt->affected_rows > 0) {
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error']);
+}
+$stmt->close();
+$conn->close();
 ?>

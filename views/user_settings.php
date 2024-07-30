@@ -1,22 +1,18 @@
 <?php
 session_start();
-include '../includes/db.php'; // Ensure the correct path
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to login if the user is not logged in
-    exit();
-}
+include '../includes/db.php';
 
 $userId = $_SESSION['user_id'];
-$query = "SELECT username, role, email, bio, interests FROM userdb WHERE userID = ?";
+$query = "SELECT username, role, email, bio, interests, profile_picture FROM userdb WHERE userID = ?";
 $stmt = $conn->prepare($query);
 if ($stmt === false) {
     die('Prepare failed: ' . htmlspecialchars($conn->error));
 }
 $stmt->bind_param('i', $userId);
 $stmt->execute();
-$stmt->bind_result($username, $role, $email, $bio, $interests);
+$stmt->bind_result($username, $role, $email, $bio, $interests, $profilePicture);
 $stmt->fetch();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -48,21 +44,24 @@ $stmt->fetch();
 
     <div class="settings-container">
         <h1>User Settings</h1>
-        <form id="user-settings-form" enctype="multipart/form-data">
+        <div id="message" class="message" style="display:none;"></div>
+        <form id="user-settings-form" method="POST" action="../actions/user_settings_action.php">
+            <input type="hidden" name="action" value="save_changes">
             <div class="form-group">
-                <label for="profile-picture">Profile Picture</label>
+                <label for="profile-picture-url">Profile Picture URL</label>
                 <div class="profile-picture-wrapper">
-                    <img src="../assets/user.png" alt="Profile Picture" id="profile-picture-preview" class="profile-picture">
+                    <img src="<?php echo htmlspecialchars($profilePicture) ?: '../assets/user.png'; ?>" alt="Profile Picture" id="profile-picture-preview" class="profile-picture">
                     <div class="change-picture-overlay">
-                        <button type="button" class="change-picture-button" onclick="document.getElementById('profile-picture').click()">Change Picture</button>
-                        <input type="file" id="profile-picture" name="profile_picture" accept="image/*" style="display:none;">
+                        <span class="change-picture-button">Change Picture</span>
                     </div>
                 </div>
+                <input type="url" id="profile-picture-url" name="profile_picture_url" placeholder="Enter the image URL" value="<?php echo htmlspecialchars($profilePicture); ?>" disabled>
+                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('profile-picture-url')">
             </div>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" disabled>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="openEditModal('username', '<?php echo htmlspecialchars($username); ?>')">
+                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('username')">
             </div>
             <div class="form-group">
                 <label for="role">User Role</label>
@@ -71,36 +70,21 @@ $stmt->fetch();
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="openEditModal('email', '<?php echo htmlspecialchars($email); ?>')">
+                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('email')">
             </div>
             <div class="form-group">
                 <label for="bio">Bio</label>
                 <textarea id="bio" name="bio" disabled><?php echo htmlspecialchars($bio); ?></textarea>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="openEditModal('bio', '<?php echo htmlspecialchars($bio); ?>')">
+                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('bio')">
             </div>
             <div class="form-group">
                 <label for="interests">Interests</label>
                 <textarea id="interests" name="interests" disabled><?php echo htmlspecialchars($interests); ?></textarea>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="openEditModal('interests', '<?php echo htmlspecialchars($interests); ?>')">
+                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('interests')">
             </div>
             <button type="submit" class="save-changes-button">Save Changes</button>
         </form>
         <button type="button" class="change-password-button" onclick="openChangePassword()">Change Password</button>
-    </div>
-
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeEditModal()">&times;</span>
-            <h2>Edit <span id="edit-field-name"></span></h2>
-            <form id="edit-form">
-                <input type="hidden" id="field" name="field">
-                <input type="text" id="new-value" name="new_value">
-                <div class="modal-buttons">
-                    <button type="button" class="cancel-button" onclick="closeEditModal()">Cancel</button>
-                    <button type="button" onclick="saveEdit()">Save</button>
-                </div>
-            </form>
-        </div>
     </div>
 
     <div id="change-password-modal" class="modal">
@@ -121,39 +105,14 @@ $stmt->fetch();
     </div>
 
     <script>
-        document.getElementById('profile-picture').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('profile-picture-preview').src = e.target.result;
-            }
-            reader.readAsDataURL(file);
+        document.getElementById('profile-picture-url').addEventListener('input', function(event) {
+            const url = event.target.value;
+            document.getElementById('profile-picture-preview').src = url;
         });
 
-        function openEditModal(field, value) {
-            document.getElementById('field').value = field;
-            document.getElementById('new-value').value = value;
-            document.getElementById('edit-field-name').textContent = field;
-            document.getElementById('edit-modal').style.display = 'flex';
-        }
-
-        function closeEditModal() {
-            document.getElementById('edit-modal').style.display = 'none';
-        }
-
-        function saveEdit() {
-            var formData = new FormData(document.getElementById('edit-form'));
-            formData.append('action', 'save_edit');
-
-            fetch('user_settings_action.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      location.reload();
-                  }
-              });
+        function enableEditing(id) {
+            document.getElementById(id).removeAttribute('disabled');
+            document.getElementById(id).focus();
         }
 
         function openChangePassword() {
@@ -164,11 +123,33 @@ $stmt->fetch();
             document.getElementById('change-password-modal').style.display = 'none';
         }
 
+        document.getElementById('user-settings-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(document.getElementById('user-settings-form'));
+
+            fetch('../actions/user_settings_action.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.status === 'success') {
+                      document.getElementById('message').innerText = 'Changes saved successfully.';
+                      document.getElementById('message').style.display = 'block';
+                      setTimeout(function() {
+                          location.reload();
+                      }, 2000);
+                  } else {
+                      document.getElementById('message').innerText = 'Failed to save changes.';
+                      document.getElementById('message').style.display = 'block';
+                  }
+              });
+        });
+
         function changePassword() {
             var formData = new FormData(document.getElementById('change-password-form'));
             formData.append('action', 'change_password');
 
-            fetch('user_settings_action.php', {
+            fetch('../actions/user_settings_action.php', {
                 method: 'POST',
                 body: formData
             }).then(response => response.json())
