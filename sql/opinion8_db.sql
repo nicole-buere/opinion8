@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2024 at 11:54 AM
+-- Generation Time: Jul 30, 2024 at 10:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,8 +120,8 @@ CREATE TABLE `userdb` (
 --
 
 INSERT INTO `userdb` (`userID`, `role`, `email`, `username`, `password`, `bio`, `interests`, `profile_picture`) VALUES
-(1, 'Admin', 'admin@email.com', 'admin', '$2y$10$GFVDoa6N2c8wdzI/knpdsesMjObxvA5.ywoDDPYWDBUrzBekEcZSK', NULL, NULL, NULL),
-(2, 'User', 'user@email.com', 'user', '$2y$10$sXDC.572yo4ef0H.YYxREOvF/oRoWEtYdbCyIbRzgcVaWQoLZSy/S', NULL, NULL, NULL);
+(1, 'Admin', 'admin@email.com', 'admin', '$2y$10$O2S0ezDjv4Su4Gr644kvKerjDeVEQNpLBDsBkRlsmrRCO.Pf/hBZ6', '', '', 'https://pm1.narvii.com/5805/b81bc97550c6888482a4bfea40d16293271ad1fe_hq.jpg'),
+(2, 'User', 'user@email.com', 'user1', '$2y$10$sXDC.572yo4ef0H.YYxREOvF/oRoWEtYdbCyIbRzgcVaWQoLZSy/S', NULL, NULL, 'https://avatarfiles.alphacoders.com/129/thumb-1920-129094.jpg');
 
 --
 -- Indexes for dumped tables
