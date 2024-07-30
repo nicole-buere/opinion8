@@ -6,6 +6,7 @@ body {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
     background-color: #dee3e3;
+    font-family: 'Inter';
 }
 
 .content-box {
@@ -125,5 +126,3 @@ body {
     align-items: center;
     margin-left: auto;
 }
-
-

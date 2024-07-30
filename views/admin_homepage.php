@@ -4,62 +4,34 @@
     <title>Opinion8 - Admin Homepage</title>
     <link rel="stylesheet" href="../css/admin_home.css">
     <link rel="stylesheet" href="../css/header.css">
-    <style>
-        /* CSS styles for dropdown menu */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Ensure existing CSS styles are maintained */
-        /* Add any additional styles here if needed */
-    </style>
 </head>
+
 <body>
     <!-- header -->
     <div class="header">
+        <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
-        <a href="admin_homepage.php" class="home-link">Home</a>
-
+        <!-- home button -->
+        <a href="../views/homepage.php" class="button primary">Home</a>
+        <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
-                <input type="text" placeholder="Search..." class="search-bar">
+                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
+                <input type="text" placeholder="What are you looking for?" class="search-bar">
                 <a href="search.php" class="search-link">
                     <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
                 </a>
             </div>
         </div>
+        <!-- dropdown menu in profile button  -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" title="User Menu">
                 <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
             </a>
             <div class="dropdown-menu">
-                <a href="profile.php">View My Profile</a>
-                <a href="user_settings.php">User Settings</a>
-                <a href="logout.php">Logout</a>
+                <a href="../views/profile.php">View My Profile</a>
+                <a href="../views/user_settings.php">User Settings</a>
+                <a href="../views/index.php">Logout</a>
             </div>
         </div>
     </div>
@@ -124,7 +96,8 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+          // script for user drop down menu
+          document.addEventListener('DOMContentLoaded', function() {
             const dropdownToggle = document.querySelector('.dropdown-toggle');
             const dropdownMenu = document.querySelector('.dropdown-menu');
             
@@ -133,6 +106,7 @@
                 event.preventDefault(); // Prevent default anchor behavior
                 const isVisible = dropdownMenu.style.display === 'block';
                 dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
             });
 
             // Close dropdown menu if clicking outside of it

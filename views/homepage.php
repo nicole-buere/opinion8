@@ -1,3 +1,4 @@
+<!-- user homepage -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,65 +6,40 @@
     <link rel="stylesheet" href="../css/timeline.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/engagement_analytics.css">
-    <link rel="stylesheet" href="../css/footer.css"> <!-- Add this line for footer styles -->
-    <style>
-        /* Additional CSS styles for dropdown menu */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: -20px; /* Move the dropdown menu 20px to the left */
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Ensure existing CSS styles are maintained */
-        /* Add any additional styles here if needed */
-    </style>
+    <link rel="stylesheet" href="../css/footer.css"> <!-- Add this line for footer styles --> 
 </head>
+
 <body>
+    <!-- header -->
     <div class="header">
+        <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
-        <a href="homepage.php" class="home-link">Home</a>
+        <!-- home button -->
+        <a href="../views/homepage.php" class="button primary">Home</a>
+        <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search icon" class="search-icon">
-                <input type="text" placeholder="Search..." class="search-bar">
+                <input type="text" placeholder="What are you looking for?" class="search-bar">
                 <a href="search.php" class="search-link">
                     <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
                 </a>
             </div>
         </div>
+        <!-- dropdown menu in profile button  -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" title="User Menu">
                 <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
             </a>
             <div class="dropdown-menu">
-                <a href="profile.php">View My Profile</a>
-                <a href="user_settings.php">User Settings</a>
-                <a href="logout.php">Logout</a>
+                <a href="../views/profile.php">View My Profile</a>
+                <a href="../views/user_settings.php">User Settings</a>
+                <a href="../views/index.php">Logout</a>
             </div>
         </div>
     </div>
 
+<!-- contains the contents of the page -->
     <div class="timeline-box">
         <div class="content">
             <?php
@@ -180,6 +156,7 @@
     </footer>
 
     <script>
+        // script for user drop down menu
         document.addEventListener('DOMContentLoaded', function() {
             const dropdownToggle = document.querySelector('.dropdown-toggle');
             const dropdownMenu = document.querySelector('.dropdown-menu');

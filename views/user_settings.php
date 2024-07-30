@@ -1,3 +1,4 @@
+<!-- page where user/admin can change their info -->
 <?php
 session_start();
 include '../includes/db.php';
@@ -13,6 +14,9 @@ $stmt->execute();
 $stmt->bind_result($username, $role, $email, $bio, $interests, $profilePicture);
 $stmt->fetch();
 $stmt->close();
+
+// Determine the homepage URL based on the user's role
+$homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homepage.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,21 +29,34 @@ $stmt->close();
     <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
+     <!-- header -->
     <div class="header">
+        <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
-        <a href="admin_homepage.php" class="home-link">Home</a>
+        <!-- home button -->
+        <a href="<?php echo htmlspecialchars($homeUrl); ?>" class="button primary">Home</a>
+ 
+        <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search-icon" class="search-icon">
-                <input type="text" placeholder="Search..." class="search-bar">
+                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
+                <input type="text" placeholder="What are you looking for?" class="search-bar">
                 <a href="search.php" class="search-link">
                     <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
                 </a>
             </div>
         </div>
-        <a href="user_settings.php" title="User Settings">
-            <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
-        </a>
+        <!-- dropdown menu in profile button  -->
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle" title="User Menu">
+                <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
+            </a>
+            <div class="dropdown-menu">
+                <a href="../views/profile.php">View My Profile</a>
+                <a href="../views/user_settings.php">User Settings</a>
+                <a href="../views/index.php">Logout</a>
+            </div>
+        </div>
     </div>
 
     <div class="settings-container">
@@ -160,6 +177,26 @@ $stmt->close();
                   }
               });
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            // Toggle dropdown menu on click
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                const isVisible = dropdownMenu.style.display === 'block';
+                dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
+            });
+
+            // Close dropdown menu if clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
