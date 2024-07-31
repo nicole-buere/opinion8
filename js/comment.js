@@ -162,4 +162,32 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Report comment handling
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('report-button')) {
+            const commentId = event.target.getAttribute('data-comment-id');
+
+            fetch('report_comment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'comment_id': commentId
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (!result.error) {
+                    alert('Comment reported successfully.');
+                } else {
+                    console.error(result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
 });
