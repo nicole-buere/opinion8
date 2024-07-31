@@ -180,12 +180,6 @@
             });
         });
     </script>
-    
-    <form action="add_comment.php" method="POST">
-        <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
-        <textarea name="comment" required placeholder="Add your comment here"></textarea>
-        <button type="submit">Post Comment</button>
-    </form>
 
 </body>
 </html>
