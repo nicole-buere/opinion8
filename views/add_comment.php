@@ -14,14 +14,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("iis", $discussion_id, $user_id, $comment);
 
         if ($stmt->execute()) {
-            echo "Comment added successfully!";
+            // Fetch the new comment
+            $comment_id = $stmt->insert_id;
+            $commentQuery = "
+                SELECT c.id, c.comment, c.date_created, u.username,
+                    (SELECT COUNT(*) FROM comment_votes WHERE comment_id = c.id AND vote_type = 'upvote') AS upvote_count,
+                    (SELECT COUNT(*) FROM comment_votes WHERE comment_id = c.id AND vote_type = 'downvote') AS downvote_count
+                FROM comments c
+                JOIN userdb u ON c.user_id = u.userID
+                WHERE c.id = ?
+            ";
+            $commentStmt = $conn->prepare($commentQuery);
+            $commentStmt->bind_param("i", $comment_id);
+            $commentStmt->execute();
+            $comment = $commentStmt->get_result()->fetch_assoc();
+
+            echo json_encode($comment);
         } else {
-            echo "Error: " . $stmt->error;
+            echo json_encode(["error" => "Error: " . $stmt->error]);
         }
 
         $stmt->close();
     } else {
-        echo "Invalid input.";
+        echo json_encode(["error" => "Invalid input."]);
     }
 
     $conn->close();
