@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="../css/discussion.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <script src="../js/comment.js" defer></script> <!-- Ensure comment.js is linked -->
 </head>
 <body>
     <!-- header -->
@@ -30,7 +29,7 @@
             <div class="dropdown-menu">
                 <a href="../views/profile.php">View My Profile</a>
                 <a href="../views/user_settings.php">User Settings</a>
-                <a href="../views/index.php">Logout</a>
+                <a href="../views/logout.php">Logout</a>
             </div>
         </div>
     </div>
@@ -58,18 +57,22 @@
             <!-- Comment Section -->
             <div class="comments-section">
                 <h2>Comments</h2>
-                
-                <!-- Comment Form -->
-                <form id="comment-form" method="POST" action="add_comment.php">
+                <form id="comment-form">
                     <textarea name="comment" placeholder="Add a comment..." required></textarea>
-                    <input type="hidden" name="discussion_id" value="<?php echo htmlspecialchars($discussion_id); ?>">
                     <button type="submit">Submit Comment</button>
                 </form>
 
                 <div id="comments-list">
                     <?php
                     // Fetch comments for this discussion
-                    $commentsQuery = "SELECT * FROM comments WHERE discussion_id = ? ORDER BY date_created DESC";
+                    $commentsQuery = "
+                        SELECT c.id, c.comment, c.date_created, u.username,
+                            (SELECT COUNT(*) FROM comment_votes WHERE comment_id = c.id AND vote_type = 'upvote') AS upvote_count,
+                            (SELECT COUNT(*) FROM comment_votes WHERE comment_id = c.id AND vote_type = 'downvote') AS downvote_count
+                        FROM comments c
+                        JOIN userdb u ON c.user_id = u.userID
+                        WHERE c.discussion_id = ? ORDER BY c.date_created DESC
+                    ";
                     $commentsStmt = $conn->prepare($commentsQuery);
                     $commentsStmt->bind_param("i", $discussion_id);
                     $commentsStmt->execute();
@@ -78,20 +81,17 @@
                     if ($commentsResult->num_rows > 0):
                         while ($comment = $commentsResult->fetch_assoc()):
                             $comment_id = $comment['id'];
-                            $user_id = $comment['user_id'];
-                            $userQuery = "SELECT username FROM userdb WHERE userID = ?";
-                            $userStmt = $conn->prepare($userQuery);
-                            $userStmt->bind_param("i", $user_id);
-                            $userStmt->execute();
-                            $user = $userStmt->get_result()->fetch_assoc();
-                            $username = $user['username'];
+                            $username = htmlspecialchars($comment['username']);
+                            $comment_text = htmlspecialchars($comment['comment']);
+                            $upvote_count = $comment['upvote_count'];
+                            $downvote_count = $comment['downvote_count'];
                     ?>
-                        <div class="comment" id="comment-<?php echo $comment_id; ?>">
-                            <p><strong><?php echo htmlspecialchars($username); ?>:</strong> <?php echo nl2br(htmlspecialchars($comment['comment'])); ?></p>
+                        <div class="comment">
+                            <p><strong><?php echo $username; ?>:</strong> <?php echo nl2br($comment_text); ?></p>
                             <div class="comment-actions">
                                 <button class="reply-button" data-comment-id="<?php echo $comment_id; ?>">Reply</button>
-                                <button class="upvote-button" data-comment-id="<?php echo $comment_id; ?>">Upvote</button>
-                                <button class="downvote-button" data-comment-id="<?php echo $comment_id; ?>">Downvote</button>
+                                <button class="upvote-button" data-comment-id="<?php echo $comment_id; ?>">Upvote (<?php echo $upvote_count; ?>)</button>
+                                <button class="downvote-button" data-comment-id="<?php echo $comment_id; ?>">Downvote (<?php echo $downvote_count; ?>)</button>
                                 <button class="report-button" data-comment-id="<?php echo $comment_id; ?>">Report</button>
                             </div>
                             <div class="replies" id="replies-<?php echo $comment_id; ?>">
@@ -115,5 +115,7 @@
         <a href="contact_us.php">Contact Us</a> | 
         <a href="privacy_policy.php">Privacy Policy</a>
     </footer>
+
+    <script src="../js/comment.js"></script>
 </body>
 </html>

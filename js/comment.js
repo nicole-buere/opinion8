@@ -1,42 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     const commentForm = document.getElementById('comment-form');
-    
-    if (commentForm) {
-        commentForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(commentForm);
-            formData.append('discussion_id', new URLSearchParams(window.location.search).get('discussion_id'));
-            fetch('add_comment.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.text()).then(result => {
-                console.log(result);
-                // Optionally refresh the comments list
-            });
-        });
-    }
+    commentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(commentForm);
+        formData.append('discussion_id', new URLSearchParams(window.location.search).get('discussion_id'));
+
+        fetch('add_comment.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.text()).then(result => {
+            // Handle success or failure
+            console.log(result);
+            location.reload(); // Reload to see the new comment
+        }).catch(error => console.error('Error:', error));
+    });
 
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
             const commentId = this.getAttribute('data-comment-id');
-            const replyForm = document.createElement('form');
-            replyForm.innerHTML = `
-                <textarea name="reply" placeholder="Add a reply..." required></textarea>
-                <button type="submit">Submit Reply</button>
-                <input type="hidden" name="comment_id" value="${commentId}">
-            `;
-            replyForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(replyForm);
-                fetch('add_reply.php', {
-                    method: 'POST',
-                    body: formData
-                }).then(response => response.text()).then(result => {
-                    console.log(result);
-                    // Optionally refresh the replies list
-                });
-            });
-            this.parentNode.appendChild(replyForm);
+            // Load and display reply form for this comment
+            // Placeholder: You need to implement the functionality to show and handle reply form
         });
     });
 
@@ -54,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             }).then(response => response.text()).then(result => {
                 console.log(result);
-            });
+                location.reload(); // Reload to see the updated vote count
+            }).catch(error => console.error('Error:', error));
         });
     });
 
@@ -72,14 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             }).then(response => response.text()).then(result => {
                 console.log(result);
-            });
+                location.reload(); // Reload to see the updated vote count
+            }).catch(error => console.error('Error:', error));
         });
     });
 
     document.querySelectorAll('.report-button').forEach(button => {
         button.addEventListener('click', function() {
             const commentId = this.getAttribute('data-comment-id');
-            const reason = prompt('Please enter the reason for reporting this comment:');
+            const reason = prompt("Please enter the reason for reporting this comment:");
             if (reason) {
                 fetch('report_comment.php', {
                     method: 'POST',
@@ -92,7 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                 }).then(response => response.text()).then(result => {
                     console.log(result);
-                });
+                    alert("Comment reported successfully.");
+                }).catch(error => console.error('Error:', error));
             }
         });
     });
