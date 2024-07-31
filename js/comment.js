@@ -1,45 +1,52 @@
 document.addEventListener('DOMContentLoaded', function() {
     const commentForm = document.getElementById('comment-form');
+    const commentsList = document.getElementById('comments-list');
+
+    // Function to render a comment
+    function renderComment(comment) {
+        const commentHtml = `
+            <div class="comment" id="comment-${comment.id}">
+                <p><strong>${comment.username}:</strong> ${comment.comment.replace(/\n/g, '<br>')}</p>
+                <div class="comment-actions">
+                    <button class="reply-button" data-comment-id="${comment.id}">Reply</button>
+                    <button class="upvote-button" data-comment-id="${comment.id}">Upvote (${comment.upvote_count})</button>
+                    <button class="downvote-button" data-comment-id="${comment.id}">Downvote (${comment.downvote_count})</button>
+                    <button class="report-button" data-comment-id="${comment.id}">Report</button>
+                </div>
+                <div class="reply-form" id="reply-form-${comment.id}" style="display:none;">
+                    <form class="reply-form-content" data-comment-id="${comment.id}">
+                        <textarea name="reply" placeholder="Add a reply..." required></textarea>
+                        <button type="submit">Submit Reply</button>
+                    </form>
+                </div>
+                <div class="replies" id="replies-${comment.id}">
+                    <!-- Replies will be dynamically loaded here -->
+                </div>
+            </div>
+        `;
+        commentsList.insertAdjacentHTML('beforeend', commentHtml);
+
+        // Render the replies
+        comment.replies.forEach(reply => {
+            const replyHtml = `
+                <div class="reply">
+                    <p><strong>${reply.username}:</strong> ${reply.reply.replace(/\n/g, '<br>')}</p>
+                </div>
+            `;
+            document.getElementById(`replies-${comment.id}`).insertAdjacentHTML('beforeend', replyHtml);
+        });
+    }
 
     // Load comments and their replies when the page loads
     const discussionId = new URLSearchParams(window.location.search).get('discussion_id');
     fetch(`get_comments.php?discussion_id=${discussionId}`)
         .then(response => response.json())
         .then(data => {
-            data.comments.forEach(comment => {
-                // Render the comment
-                const commentHtml = `
-                    <div class="comment" id="comment-${comment.id}">
-                        <p><strong>${comment.username}:</strong> ${comment.comment.replace(/\n/g, '<br>')}</p>
-                        <div class="comment-actions">
-                            <button class="reply-button" data-comment-id="${comment.id}">Reply</button>
-                            <button class="upvote-button" data-comment-id="${comment.id}">Upvote (${comment.upvote_count})</button>
-                            <button class="downvote-button" data-comment-id="${comment.id}">Downvote (${comment.downvote_count})</button>
-                            <button class="report-button" data-comment-id="${comment.id}">Report</button>
-                        </div>
-                        <div class="reply-form" id="reply-form-${comment.id}" style="display:none;">
-                            <form class="reply-form-content" data-comment-id="${comment.id}">
-                                <textarea name="reply" placeholder="Add a reply..." required></textarea>
-                                <button type="submit">Submit Reply</button>
-                            </form>
-                        </div>
-                        <div class="replies" id="replies-${comment.id}">
-                            <!-- Replies will be dynamically loaded here -->
-                        </div>
-                    </div>
-                `;
-                document.getElementById('comments-list').insertAdjacentHTML('beforeend', commentHtml);
+            // Clear previous comments
+            commentsList.innerHTML = '';
 
-                // Render the replies
-                comment.replies.forEach(reply => {
-                    const replyHtml = `
-                        <div class="reply">
-                            <p><strong>${reply.username}:</strong> ${reply.reply.replace(/\n/g, '<br>')}</p>
-                        </div>
-                    `;
-                    document.getElementById(`replies-${comment.id}`).insertAdjacentHTML('beforeend', replyHtml);
-                });
-            });
+            // Render new comments
+            data.comments.forEach(renderComment);
         });
 
     // Handle comment form submission
@@ -55,27 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(result => {
             if (!result.error) {
-                const commentHtml = `
-                    <div class="comment" id="comment-${result.id}">
-                        <p><strong>${result.username}:</strong> ${result.comment.replace(/\n/g, '<br>')}</p>
-                        <div class="comment-actions">
-                            <button class="reply-button" data-comment-id="${result.id}">Reply</button>
-                            <button class="upvote-button" data-comment-id="${result.id}">Upvote (${result.upvote_count})</button>
-                            <button class="downvote-button" data-comment-id="${result.id}">Downvote (${result.downvote_count})</button>
-                            <button class="report-button" data-comment-id="${result.id}">Report</button>
-                        </div>
-                        <div class="reply-form" id="reply-form-${result.id}" style="display:none;">
-                            <form class="reply-form-content" data-comment-id="${result.id}">
-                                <textarea name="reply" placeholder="Add a reply..." required></textarea>
-                                <button type="submit">Submit Reply</button>
-                            </form>
-                        </div>
-                        <div class="replies" id="replies-${result.id}">
-                            <!-- Replies will be dynamically loaded here -->
-                        </div>
-                    </div>
-                `;
-                document.getElementById('comments-list').insertAdjacentHTML('afterbegin', commentHtml);
+                renderComment(result);
                 commentForm.reset();
             } else {
                 console.error(result.error);
@@ -133,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target.classList.contains('upvote-button') || event.target.classList.contains('downvote-button')) {
             const commentId = event.target.getAttribute('data-comment-id');
             const voteType = event.target.classList.contains('upvote-button') ? 'upvote' : 'downvote';
-            
+
             fetch('vote_comment.php', {
                 method: 'POST',
                 headers: {
