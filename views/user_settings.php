@@ -1,4 +1,3 @@
-<!-- page where user/admin can change their info -->
 <?php
 session_start();
 include '../includes/db.php';
@@ -15,7 +14,6 @@ $stmt->bind_result($username, $role, $email, $bio, $interests, $profilePicture);
 $stmt->fetch();
 $stmt->close();
 
-// Determine the homepage URL based on the user's role
 $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homepage.php';
 ?>
 
@@ -29,7 +27,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
     <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
-     <!-- header -->
+    <!-- header -->
     <div class="header">
         <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
@@ -100,6 +98,9 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                 <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('interests')">
             </div>
             <button type="submit" class="save-changes-button">Save Changes</button>
+        </form>
+        <form action="profile.php">
+            <button type="submit" class="view-profile-button">View My Profile</button>
         </form>
         <button type="button" class="change-password-button" onclick="openChangePassword()">Change Password</button>
     </div>
@@ -182,15 +183,13 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
             const dropdownToggle = document.querySelector('.dropdown-toggle');
             const dropdownMenu = document.querySelector('.dropdown-menu');
             
-            // Toggle dropdown menu on click
             dropdownToggle.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default anchor behavior
+                event.preventDefault();
                 const isVisible = dropdownMenu.style.display === 'block';
                 dropdownMenu.style.display = isVisible ? 'none' : 'block';
-                console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
+                console.log('Dropdown menu visibility:', dropdownMenu.style.display);
             });
 
-            // Close dropdown menu if clicking outside of it
             document.addEventListener('click', function(event) {
                 if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
                     dropdownMenu.style.display = 'none';
