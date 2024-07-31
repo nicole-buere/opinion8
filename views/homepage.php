@@ -19,13 +19,16 @@
         <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
-                <input type="text" placeholder="What are you looking for?" class="search-bar">
-                <a href="search.php" class="search-link">
-                    <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
-                </a>
+              <img src="../assets/search icon.png" alt="search icon" class="search-icon">
+              <form action="search_discussions.php" method="GET">
+              <input type="text" name="query" placeholder="What are you looking for?" class="search-bar">
+                 <button type="submit" class="search-link">
+                <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
+                 </button>
+             </form>
             </div>
         </div>
+
         <!-- dropdown menu in profile button  -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" title="User Menu">
@@ -177,5 +180,12 @@
             });
         });
     </script>
+    
+    <form action="add_comment.php" method="POST">
+        <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
+        <textarea name="comment" required placeholder="Add your comment here"></textarea>
+        <button type="submit">Post Comment</button>
+    </form>
+
 </body>
 </html>

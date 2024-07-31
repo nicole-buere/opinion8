@@ -5,7 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discussion Topics</title>
     <link rel="stylesheet" href="../css/fetch.css">
+    <style>
+        /* Add some styles for search bar */
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .discussion-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+        }
+        .discussion-thumbnail {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+        .discussion-content {
+            flex: 1;
+        }
+        .discussion-title {
+            font-size: 18px;
+            margin: 0;
+        }
+        .discussion-description {
+            margin: 5px 0;
+        }
+        .discussion-date {
+            color: #666;
+        }
+    </style>
     <script>
+        function searchDiscussions() {
+            var query = document.getElementById('search-bar').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '../search_discussions.php?query=' + encodeURIComponent(query), true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var discussions = JSON.parse(xhr.responseText);
+                    var output = '';
+                    if (discussions.length > 0) {
+                        discussions.forEach(function(discussion) {
+                            output += '<div class="discussion-box">';
+                            output += '<img src="' + discussion.thumbnail + '" alt="Thumbnail" class="discussion-thumbnail">';
+                            output += '<div class="discussion-content">';
+                            output += '<h2 class="discussion-title">' + discussion.title + '</h2>';
+                            output += '<p class="discussion-description">' + discussion.description + '</p>';
+                            output += '<p class="discussion-date"><em>Created on: ' + discussion.date_created + '</em></p>';
+                            output += '</div></div>';
+                        });
+                    } else {
+                        output = '<p>No discussions found.</p>';
+                    }
+                    document.getElementById('discussion-list').innerHTML = output;
+                }
+            };
+            xhr.send();
+        }
+        
         function loadDiscussions() {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "../fetch_discussions.php", true);
@@ -31,6 +94,9 @@
 </head>
 <body onload="loadDiscussions()">
     <h1>Discussion Topics</h1>
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search discussions..." oninput="searchDiscussions()">
+    </div>
     <div id="discussion-list" class="discussion-container"></div>
 </body>
 </html>
