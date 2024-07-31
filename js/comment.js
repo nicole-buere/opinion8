@@ -4,22 +4,47 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const formData = new FormData(commentForm);
         formData.append('discussion_id', new URLSearchParams(window.location.search).get('discussion_id'));
-
+        
         fetch('add_comment.php', {
             method: 'POST',
             body: formData
         }).then(response => response.text()).then(result => {
-            // Handle success or failure
             console.log(result);
-            location.reload(); // Reload to see the new comment
-        }).catch(error => console.error('Error:', error));
+            // Optionally refresh comments list or update the UI
+        });
     });
 
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
             const commentId = this.getAttribute('data-comment-id');
-            // Load and display reply form for this comment
-            // Placeholder: You need to implement the functionality to show and handle reply form
+            const replyForm = document.getElementById(`reply-form-${commentId}`);
+            if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+                replyForm.style.display = 'block';
+            } else {
+                replyForm.style.display = 'none';
+            }
+        });
+    });
+
+    document.querySelectorAll('.reply-form-content').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentId = this.getAttribute('data-comment-id');
+            const formData = new FormData(this);
+            formData.append('comment_id', commentId);
+
+            fetch('add_reply.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.text()).then(result => {
+                console.log(result);
+                // Optionally refresh replies list or update the UI
+                // Hide reply form and reset form
+                document.getElementById(`reply-form-${commentId}`).style.display = 'none';
+                this.reset();
+            }).catch(error => {
+                console.error('Error:', error);
+            });
         });
     });
 
@@ -28,17 +53,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentId = this.getAttribute('data-comment-id');
             fetch('vote_comment.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    comment_id: commentId,
-                    vote_type: 'upvote'
-                })
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `comment_id=${commentId}&vote_type=upvote`
             }).then(response => response.text()).then(result => {
                 console.log(result);
-                location.reload(); // Reload to see the updated vote count
-            }).catch(error => console.error('Error:', error));
+                // Optionally update upvote count
+            });
         });
     });
 
@@ -47,39 +67,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentId = this.getAttribute('data-comment-id');
             fetch('vote_comment.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    comment_id: commentId,
-                    vote_type: 'downvote'
-                })
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `comment_id=${commentId}&vote_type=downvote`
             }).then(response => response.text()).then(result => {
                 console.log(result);
-                location.reload(); // Reload to see the updated vote count
-            }).catch(error => console.error('Error:', error));
+                // Optionally update downvote count
+            });
         });
     });
 
     document.querySelectorAll('.report-button').forEach(button => {
         button.addEventListener('click', function() {
             const commentId = this.getAttribute('data-comment-id');
-            const reason = prompt("Please enter the reason for reporting this comment:");
-            if (reason) {
-                fetch('report_comment.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        comment_id: commentId,
-                        reason: reason
-                    })
-                }).then(response => response.text()).then(result => {
-                    console.log(result);
-                    alert("Comment reported successfully.");
-                }).catch(error => console.error('Error:', error));
-            }
+            fetch('report_comment.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `comment_id=${commentId}`
+            }).then(response => response.text()).then(result => {
+                console.log(result);
+                // Optionally provide feedback to the user
+            });
         });
     });
 });

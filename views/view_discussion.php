@@ -94,6 +94,12 @@
                                 <button class="downvote-button" data-comment-id="<?php echo $comment_id; ?>">Downvote (<?php echo $downvote_count; ?>)</button>
                                 <button class="report-button" data-comment-id="<?php echo $comment_id; ?>">Report</button>
                             </div>
+                            <div class="reply-form" id="reply-form-<?php echo $comment_id; ?>" style="display:none;">
+                                <form class="reply-form-content" data-comment-id="<?php echo $comment_id; ?>">
+                                    <textarea name="reply" placeholder="Add a reply..." required></textarea>
+                                    <button type="submit">Submit Reply</button>
+                                </form>
+                            </div>
                             <div class="replies" id="replies-<?php echo $comment_id; ?>">
                                 <!-- Replies will be dynamically loaded here -->
                             </div>
