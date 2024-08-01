@@ -188,5 +188,45 @@
         }
     });
     </script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                const isVisible = dropdownMenu.style.display === 'block';
+                dropdownMenu.style.display = isVisible ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+
+            document.querySelectorAll('.view-discussion').forEach(button => {
+                button.addEventListener('click', function() {
+                    const discussionId = this.getAttribute('data-discussion-id');
+                    window.location.href = `view_discussion.php?discussion_id=${discussionId}`;
+                });
+            });
+
+            document.querySelectorAll('.vote-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const pollId = this.getAttribute('data-poll-id');
+                    const selectedOption = document.querySelector(`input[name="poll_${pollId}"]:checked`);
+                    if (selectedOption) {
+                        const optionId = selectedOption.value;
+                        // Handle the voting logic here
+                        console.log(`Voted for option ID: ${optionId} in poll ID: ${pollId}`);
+                    } else {
+                        alert("Please select an option to vote.");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
