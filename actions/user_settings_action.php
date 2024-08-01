@@ -2,6 +2,11 @@
 session_start();
 include '../includes/db.php';
 
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['status' => 'error', 'message' => 'User not logged in.']);
+    exit();
+}
+
 $userId = $_SESSION['user_id'];
 
 $profile_picture_url = $_POST['profile_picture_url'] ?? null;
@@ -44,4 +49,3 @@ if ($stmt->affected_rows > 0) {
 $stmt->close();
 $conn->close();
 ?>
- 

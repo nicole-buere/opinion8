@@ -2,12 +2,18 @@
 session_start();
 include '../includes/db.php';
 
+if (!isset($_SESSION['user_id'])) {
+    die('User not logged in.');
+}
+
 $userId = $_SESSION['user_id'];
 $query = "SELECT username, role, email, bio, interests, profile_picture FROM userdb WHERE userID = ?";
 $stmt = $conn->prepare($query);
+
 if ($stmt === false) {
     die('Prepare failed: ' . htmlspecialchars($conn->error));
 }
+
 $stmt->bind_param('i', $userId);
 $stmt->execute();
 $stmt->bind_result($username, $role, $email, $bio, $interests, $profilePicture);
@@ -33,7 +39,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <!-- home button -->
         <a href="<?php echo htmlspecialchars($homeUrl); ?>" class="button primary">Home</a>
- 
+
         <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
@@ -58,76 +64,105 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
     </div>
 
     <div class="settings-container">
-        <h1>User Settings</h1>
-        <div id="message" class="message" style="display:none;"></div>
+        <div class="heading">
+            <h1>Edit your profile</h1>
+            <p>Customize your profile to personalize how other users see you across the site.</p>
+        </div>
+
         <form id="user-settings-form" method="POST" action="../actions/user_settings_action.php">
-            <input type="hidden" name="action" value="save_changes">
-            <div class="form-group">
-                <label for="profile-picture-url">Profile Picture URL</label>
-                <div class="profile-picture-wrapper">
-                    <img src="<?php echo htmlspecialchars($profilePicture) ?: '../assets/user.png'; ?>" alt="Profile Picture" id="profile-picture-preview" class="profile-picture">
-                    <div class="change-picture-overlay">
-                        <span class="change-picture-button">Change Picture</span>
+            <div class="info">
+                <div class="pfp-edit">
+                    <div class="profile-picture-wrapper">
+                        <img src="<?php echo htmlspecialchars($profilePicture) ?: '../assets/user.png'; ?>" alt="Profile Picture" id="profile-picture-preview" class="profile-picture">
+                    </div>
+                    <button type="button" class="change-picture-button" onclick="openChangePictureModal()">Change Profile Picture</button>
+                </div>
+
+                <div class="acc-info">
+                    <!-- username -->
+                    <div class="form-group">
+                        <div class="label-and-edit">
+                            <label for="username">Username</label>
+                            <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('username')">
+                        </div>
+                        <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" disabled>
+                    </div>
+                    <!-- email -->
+                    <div class="form-group">
+                        <div class="label-and-edit">
+                            <label for="email">Email</label>
+                            <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('email')">
+                        </div>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
+                    </div>
+                    <!-- bio -->
+                    <div class="form-group">
+                        <div class="label-and-edit">
+                            <label for="bio">Bio</label>
+                            <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('bio')">
+                        </div>
+                        <textarea id="bio" name="bio" disabled><?php echo htmlspecialchars($bio); ?></textarea>
+                    </div>
+                    <!-- interests -->
+                    <div class="form-group">
+                        <div class="label-and-edit">
+                            <label for="interests">Interests</label>
+                            <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('interests')">
+                        </div>
+                        <textarea id="interests" name="interests" disabled><?php echo htmlspecialchars($interests); ?></textarea>
+                    </div>
+                    <!-- change password -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <button type="button" class="change-password-button" onclick="openChangePassword()">Change Password</button>
                     </div>
                 </div>
-                <input type="url" id="profile-picture-url" name="profile_picture_url" placeholder="Enter the image URL" value="<?php echo htmlspecialchars($profilePicture); ?>" disabled>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('profile-picture-url')">
             </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" disabled>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('username')">
-            </div>
-            <div class="form-group">
-                <label for="role">User Role</label>
-                <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($role); ?>" disabled>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('email')">
-            </div>
-            <div class="form-group">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" disabled><?php echo htmlspecialchars($bio); ?></textarea>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('bio')">
-            </div>
-            <div class="form-group">
-                <label for="interests">Interests</label>
-                <textarea id="interests" name="interests" disabled><?php echo htmlspecialchars($interests); ?></textarea>
-                <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('interests')">
-            </div>
-            <button type="submit" class="save-changes-button">Save Changes</button>
-        </form>
-        <form action="profile.php">
-            <button type="submit" class="view-profile-button">View My Profile</button>
-        </form>
-        <button type="button" class="change-password-button" onclick="openChangePassword()">Change Password</button>
-    </div>
 
-    <div id="change-password-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeChangePassword()">&times;</span>
-            <h2>Change Password</h2>
-            <form id="change-password-form">
-                <div class="form-group">
-                    <label for="new-password">New Password</label>
-                    <input type="password" id="new-password" name="new_password">
-                </div>
-                <div class="modal-buttons">
-                    <button type="button" class="cancel-button" onclick="closeChangePassword()">Cancel</button>
-                    <button type="button" onclick="changePassword()">Change Password</button>
-                </div>
-            </form>
+            <div class="button-container">
+                <button type="submit" class="save-changes-button">Save Changes</button>
+                <button type="button" class="view-profile-button" onclick="window.location.href='profile.php'">View My Profile</button>
+            </div>
+        </form>
+
+        <!-- Change Password Modal -->
+        <div id="change-password-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeChangePassword()">&times;</span>
+                <h2>Change Password</h2>
+                <form id="change-password-form">
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" name="new_password">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-button" onclick="closeChangePassword()">Cancel</button>
+                        <button type="button" onclick="changePassword()">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Change Profile Picture Modal -->
+        <div id="change-picture-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeChangePictureModal()">&times;</span>
+                <h2>Change Profile Picture</h2>
+                <form id="change-picture-form">
+                    <div class="form-group">
+                        <label for="profile-picture-url">Profile Picture URL</label>
+                        <input type="url" id="profile-picture-url" name="profile_picture_url" placeholder="Enter the image URL" value="<?php echo htmlspecialchars($profilePicture); ?>">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-button" onclick="closeChangePictureModal()">Cancel</button>
+                        <button type="button" onclick="updateProfilePicture()">Change Picture</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('profile-picture-url').addEventListener('input', function(event) {
-            const url = event.target.value;
-            document.getElementById('profile-picture-preview').src = url;
-        });
-
         function enableEditing(id) {
             document.getElementById(id).removeAttribute('disabled');
             document.getElementById(id).focus();
@@ -139,6 +174,20 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
 
         function closeChangePassword() {
             document.getElementById('change-password-modal').style.display = 'none';
+        }
+
+        function openChangePictureModal() {
+            document.getElementById('change-picture-modal').style.display = 'flex';
+        }
+
+        function closeChangePictureModal() {
+            document.getElementById('change-picture-modal').style.display = 'none';
+        }
+
+        function updateProfilePicture() {
+            const url = document.getElementById('profile-picture-url').value;
+            document.getElementById('profile-picture-preview').src = url;
+            closeChangePictureModal();
         }
 
         document.getElementById('user-settings-form').addEventListener('submit', function(event) {
@@ -182,12 +231,11 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
         document.addEventListener('DOMContentLoaded', function() {
             const dropdownToggle = document.querySelector('.dropdown-toggle');
             const dropdownMenu = document.querySelector('.dropdown-menu');
-            
+
             dropdownToggle.addEventListener('click', function(event) {
                 event.preventDefault();
                 const isVisible = dropdownMenu.style.display === 'block';
                 dropdownMenu.style.display = isVisible ? 'none' : 'block';
-                console.log('Dropdown menu visibility:', dropdownMenu.style.display);
             });
 
             document.addEventListener('click', function(event) {

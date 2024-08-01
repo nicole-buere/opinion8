@@ -13,10 +13,14 @@
 - go to http://localhost/opinion8/views/
 
 # log in credentials
-- for admin
+- for admins
 - email: admin@email.com
 - password: 123
 
-- for user 
+<!-- add if you created a new one -->
+
+- for users
 - email: user@email.com
 - password:123
+
+<!-- add if you created a new one -->

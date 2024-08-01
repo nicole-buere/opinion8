@@ -29,7 +29,7 @@
             <div class="dropdown-menu">
                 <a href="../views/profile.php">View My Profile</a>
                 <a href="../views/user_settings.php">User Settings</a>
-                <a href="../views/logout.php">Logout</a>
+                <a href="../views/index.php">Logout</a>
             </div>
         </div>
     </div>
@@ -125,7 +125,28 @@
         <a href="contact_us.php">Contact Us</a> | 
         <a href="privacy_policy.php">Privacy Policy</a>
     </footer>
-
     <script src="../js/comment.js"></script>
+    <script>
+    // script for user drop down menu
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        
+        // Toggle dropdown menu on click
+        dropdownToggle.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            const isVisible = dropdownMenu.style.display === 'block';
+            dropdownMenu.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // Close dropdown menu if clicking outside of it
+        document.addEventListener('click', function(event) {
+            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    });
+    </script>
+    
 </body>
 </html>
