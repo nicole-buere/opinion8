@@ -17,7 +17,7 @@
 
 /* Styles for buttons inside comment actions */
 .comment-actions button {
-    background-color: #007bff; /* Blue background for buttons */
+    background-color: #76A4A3; /* Blue background for buttons */
     color: #fff;               /* White text color */
     border: none;              /* Remove border */
     padding: 5px 10px;        /* Padding inside buttons */
@@ -65,11 +65,11 @@
 .replies {
     margin-top: 10px;         /* Space between the reply form and replies */
     padding-left: 20px;      /* Indentation for replies */
-    border-left: 2px solid #b9b8b8; /* Border to separate replies from comments */
+    border-left: 2px solid #b9b8b8; /* Border to separate replies from comments (eto yung line)*/
 }
 
 .reply {
-    background-color: #b5b8e6; /* Slightly different background color for replies */
+    background-color: #aecfcf; /* Slightly different background color for replies */
     padding: 10px;           /* Padding inside replies */
     border-radius: 5px;      /* Rounded corners for replies */
     margin-bottom: 10px;     /* Space between replies */
