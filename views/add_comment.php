@@ -1,13 +1,13 @@
 <?php
 include('../includes/db.php');
+session_start(); // Ensure session is started to access session variables
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comment = isset($_POST['comment']) ? trim($_POST['comment']) : '';
     $discussion_id = isset($_POST['discussion_id']) ? intval($_POST['discussion_id']) : 0;
+    $user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0; // Fetch actual user ID from session
 
-    if (!empty($comment) && $discussion_id > 0) {
-        $user_id = 1; // For testing, set a default user_id (You should replace this with the actual logged-in user ID)
-
+    if (!empty($comment) && $discussion_id > 0 && $user_id > 0) {
         // Insert comment into the database
         $insertQuery = "INSERT INTO comments (discussion_id, user_id, comment) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
@@ -29,6 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $commentStmt->execute();
             $comment = $commentStmt->get_result()->fetch_assoc();
 
+            // Fetch replies for the comment if needed
+            $repliesQuery = "
+                SELECT r.id, r.reply, u.username
+                FROM comment_replies r
+                JOIN userdb u ON r.user_id = u.userID
+                WHERE r.comment_id = ?
+            ";
+            $repliesStmt = $conn->prepare($repliesQuery);
+            $repliesStmt->bind_param("i", $comment_id);
+            $repliesStmt->execute();
+            $repliesResult = $repliesStmt->get_result();
+            $replies = $repliesResult->fetch_all(MYSQLI_ASSOC);
+            $comment['replies'] = $replies;
+
             echo json_encode($comment);
         } else {
             echo json_encode(["error" => "Error: " . $stmt->error]);
@@ -36,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
     } else {
-        echo json_encode(["error" => "Invalid input."]);
+        echo json_encode(["error" => "Invalid input or user not logged in."]);
     }
 
     $conn->close();
