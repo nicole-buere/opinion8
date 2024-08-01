@@ -48,7 +48,7 @@
 
 /* Styles for submit button inside reply form */
 .reply-form button {
-    background-color: #28a745; /* Green background for submit button */
+    background-color: #232da7; /* Green background for submit button */
     color: #fff;               /* White text color */
     border: none;              /* Remove border */
     padding: 5px 10px;        /* Padding inside button */
