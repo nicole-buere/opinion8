@@ -5,8 +5,7 @@
     <link rel="stylesheet" href="../css/discussion.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/comment.css"> 
-    
+    <link rel="stylesheet" href="../css/comment.css">
 </head>
 <body>
     <!-- header -->
@@ -58,11 +57,23 @@
             <img src="<?php echo htmlspecialchars($discussion['thumbnail']); ?>" alt="Thumbnail" width="200" height="200">
             <p><?php echo nl2br(htmlspecialchars($discussion['description'])); ?></p>
 
+            <!-- Voting Section -->
+            <div class="voting-section">
+                <h2>Vote on this Discussion</h2>
+                <button class="pro-vote-button" data-discussion-id="<?php echo $discussion_id; ?>">Pro</button>
+                <button class="anti-vote-button" data-discussion-id="<?php echo $discussion_id; ?>">Anti</button>
+                <div id="vote-status">
+                    <p>Pro Votes: <span id="pro-vote-count">0</span></p>
+                    <p>Anti Votes: <span id="anti-vote-count">0</span></p>
+                </div>
+            </div>
+
             <!-- Comment Section -->
             <div class="comments-section">
                 <h2>Comments</h2>
                 <form id="comment-form">
                     <textarea name="comment" placeholder="Add a comment..." required></textarea>
+                    <input type="hidden" name="discussion_id" value="<?php echo $discussion_id; ?>">
                     <button type="submit">Submit Comment</button>
                 </form>
 
@@ -127,26 +138,59 @@
         <a href="contact_us.php">Contact Us</a> | 
         <a href="privacy_policy.php">Privacy Policy</a>
     </footer>
+    
     <script src="../js/comment.js"></script>
     <script>
-    // script for user drop down menu
     document.addEventListener('DOMContentLoaded', function() {
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const dropdownMenu = document.querySelector('.dropdown-menu');
-        
-        // Toggle dropdown menu on click
+
         dropdownToggle.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default anchor behavior
+            event.preventDefault();
             const isVisible = dropdownMenu.style.display === 'block';
             dropdownMenu.style.display = isVisible ? 'none' : 'block';
         });
 
-        // Close dropdown menu if clicking outside of it
         document.addEventListener('click', function(event) {
             if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = 'none';
             }
         });
+
+        // Voting functionality
+        const proVoteButton = document.querySelector('.pro-vote-button');
+        const antiVoteButton = document.querySelector('.anti-vote-button');
+        const proVoteCount = document.getElementById('pro-vote-count');
+        const antiVoteCount = document.getElementById('anti-vote-count');
+
+        proVoteButton.addEventListener('click', function() {
+            handleVote('pro');
+        });
+
+        antiVoteButton.addEventListener('click', function() {
+            handleVote('anti');
+        });
+
+        function handleVote(voteType) {
+            const discussionId = proVoteButton.getAttribute('data-discussion-id');
+
+            fetch('vote_discussion.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ discussion_id: discussionId, vote_type: voteType }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    proVoteCount.textContent = data.pro_votes;
+                    antiVoteCount.textContent = data.anti_votes;
+                }
+            });
+        }
     });
     </script>
 </body>

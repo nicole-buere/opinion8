@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2024 at 03:47 AM
+-- Generation Time: Aug 01, 2024 at 09:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,8 +40,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `discussion_id`, `user_id`, `comment`, `date_created`) VALUES
-(30, 1, 3, '1', '2024-08-01 08:58:07'),
-(31, 1, 3, 'a', '2024-08-01 09:01:14');
+(1, 1, 2, 'c1', '2024-08-02 03:35:27'),
+(2, 1, 2, 'c2', '2024-08-02 03:36:45'),
+(3, 2, 3, 'comment 1', '2024-08-02 03:39:00');
 
 -- --------------------------------------------------------
 
@@ -62,11 +63,9 @@ CREATE TABLE `comment_replies` (
 --
 
 INSERT INTO `comment_replies` (`id`, `comment_id`, `user_id`, `reply`, `date_created`) VALUES
-(31, 30, 2, '1', '2024-08-01 08:58:36'),
-(32, 30, 2, '2\r\n', '2024-08-01 08:58:49'),
-(33, 30, 3, '3', '2024-08-01 09:01:00'),
-(34, 31, 2, 'a', '2024-08-01 09:01:56'),
-(35, 31, 3, 'b', '2024-08-01 09:19:40');
+(1, 1, 2, 'r1', '2024-08-02 03:37:01'),
+(2, 2, 3, 'r1', '2024-08-02 03:38:25'),
+(3, 2, 3, 'r2', '2024-08-02 03:38:46');
 
 -- --------------------------------------------------------
 
@@ -81,15 +80,6 @@ CREATE TABLE `comment_reports` (
   `reason` text NOT NULL,
   `date_reported` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `comment_reports`
---
-
-INSERT INTO `comment_reports` (`id`, `comment_id`, `user_id`, `reason`, `date_reported`) VALUES
-(1, 31, 3, '', '2024-08-01 09:20:46'),
-(2, 31, 3, 'spam', '2024-08-01 09:23:19'),
-(3, 30, 2, 'sspam', '2024-08-01 09:24:01');
 
 -- --------------------------------------------------------
 
@@ -108,10 +98,11 @@ CREATE TABLE `comment_votes` (
 --
 
 INSERT INTO `comment_votes` (`comment_id`, `user_id`, `vote_type`) VALUES
-(30, 2, 'upvote'),
-(30, 3, 'downvote'),
-(31, 2, 'upvote'),
-(31, 3, 'downvote');
+(1, 2, 'upvote'),
+(1, 3, 'upvote'),
+(2, 2, 'upvote'),
+(2, 3, 'downvote'),
+(3, 3, 'upvote');
 
 -- --------------------------------------------------------
 
@@ -148,6 +139,26 @@ CREATE TABLE `discussion` (
 INSERT INTO `discussion` (`discussion_id`, `thumbnail`, `title`, `description`, `date_created`) VALUES
 (1, 'https://static01.nyt.com/images/2023/03/29/multimedia/23HAMREX2-pineapple-ham-pizza-qwct/HAMREX2-pineapple-ham-pizza-qwct-superJumbo.jpg', 'Pineapple on Pizza: Delicious or Disastrous?', 'The debate over pineapple on pizza has been polarizing for years. Is it a sweet and savory delight or a culinary mistake? Share your views on this intriguing topic!', '2024-07-26 17:44:42'),
 (2, 'https://image.cnbcfm.com/api/v1/image/106352552-1579818429413gettyimages-968890648.jpg?v=1579818498', 'Should Remote Work Become the New Standard for All Industries?', 'Remote work has transformed our workdays, but is it time to make it the norm for every industry? We’ll explore if the freedom of working from anywhere outweighs the need for in-person collaboration.', '2024-07-26 17:46:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discussion_votes`
+--
+
+CREATE TABLE `discussion_votes` (
+  `id` int(11) NOT NULL,
+  `discussion_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `vote_type` enum('pro','anti') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `discussion_votes`
+--
+
+INSERT INTO `discussion_votes` (`id`, `discussion_id`, `user_id`, `vote_type`) VALUES
+(4, 1, 2, 'pro');
 
 -- --------------------------------------------------------
 
@@ -250,6 +261,13 @@ ALTER TABLE `discussion`
   ADD PRIMARY KEY (`discussion_id`);
 
 --
+-- Indexes for table `discussion_votes`
+--
+ALTER TABLE `discussion_votes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_vote` (`discussion_id`,`user_id`);
+
+--
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`
@@ -279,19 +297,19 @@ ALTER TABLE `userdb`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `comment_replies`
 --
 ALTER TABLE `comment_replies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `comment_reports`
 --
 ALTER TABLE `comment_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `content`
@@ -304,6 +322,12 @@ ALTER TABLE `content`
 --
 ALTER TABLE `discussion`
   MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `discussion_votes`
+--
+ALTER TABLE `discussion_votes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `likes`
