@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2024 at 10:51 AM
+-- Generation Time: Aug 01, 2024 at 03:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -11,7 +11,11 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-SET NAMES utf8mb4;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `opinion8_db`
@@ -20,52 +24,72 @@ SET NAMES utf8mb4;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userdb`
---
-
-CREATE TABLE `userdb` (
-  `userID` int(11) NOT NULL AUTO_INCREMENT,
-  `role` enum('User','Admin') NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `bio` text DEFAULT NULL,
-  `interests` text DEFAULT NULL,
-  `profile_picture` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `discussion`
---
-
-CREATE TABLE `discussion` (
-  `discussion_id` int(11) NOT NULL AUTO_INCREMENT,
-  `thumbnail` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`discussion_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `discussion_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `comment` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`discussion_id`) REFERENCES `discussion`(`discussion_id`) ON DELETE CASCADE,
-  FOREIGN KEY (`user_id`) REFERENCES `userdb`(`userID`) ON DELETE CASCADE
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `discussion_id`, `user_id`, `comment`, `date_created`) VALUES
+(30, 1, 3, '1', '2024-08-01 08:58:07'),
+(31, 1, 3, 'a', '2024-08-01 09:01:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_replies`
+--
+
+CREATE TABLE `comment_replies` (
+  `id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reply` text NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comment_replies`
+--
+
+INSERT INTO `comment_replies` (`id`, `comment_id`, `user_id`, `reply`, `date_created`) VALUES
+(31, 30, 2, '1', '2024-08-01 08:58:36'),
+(32, 30, 2, '2\r\n', '2024-08-01 08:58:49'),
+(33, 30, 3, '3', '2024-08-01 09:01:00'),
+(34, 31, 2, 'a', '2024-08-01 09:01:56'),
+(35, 31, 3, 'b', '2024-08-01 09:19:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_reports`
+--
+
+CREATE TABLE `comment_reports` (
+  `id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reason` text NOT NULL,
+  `date_reported` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comment_reports`
+--
+
+INSERT INTO `comment_reports` (`id`, `comment_id`, `user_id`, `reason`, `date_reported`) VALUES
+(1, 31, 3, '', '2024-08-01 09:20:46'),
+(2, 31, 3, 'spam', '2024-08-01 09:23:19'),
+(3, 30, 2, 'sspam', '2024-08-01 09:24:01');
 
 -- --------------------------------------------------------
 
@@ -76,45 +100,18 @@ CREATE TABLE `comments` (
 CREATE TABLE `comment_votes` (
   `comment_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `vote_type` ENUM('upvote', 'downvote') NOT NULL,
-  PRIMARY KEY (`comment_id`, `user_id`),
-  FOREIGN KEY (`comment_id`) REFERENCES `comments`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`user_id`) REFERENCES `userdb`(`userID`) ON DELETE CASCADE
+  `vote_type` enum('upvote','downvote') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `comment_replies`
+-- Dumping data for table `comment_votes`
 --
 
-CREATE TABLE `comment_replies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comment_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `reply` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`comment_id`) REFERENCES `comments`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`user_id`) REFERENCES `userdb`(`userID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `comment_reports`
---
-
-CREATE TABLE `comment_reports` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comment_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `reason` text NOT NULL,
-  `date_reported` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`comment_id`) REFERENCES `comments`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`user_id`) REFERENCES `userdb`(`userID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `comment_votes` (`comment_id`, `user_id`, `vote_type`) VALUES
+(30, 2, 'upvote'),
+(30, 3, 'downvote'),
+(31, 2, 'upvote'),
+(31, 3, 'downvote');
 
 -- --------------------------------------------------------
 
@@ -123,48 +120,26 @@ CREATE TABLE `comment_reports` (
 --
 
 CREATE TABLE `content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `topic` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `type` enum('discussion','poll') NOT NULL,
-  `content` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes`
+-- Table structure for table `discussion`
 --
 
-CREATE TABLE `likes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`post_id`) REFERENCES `content`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`user_id`) REFERENCES `userdb`(`userID`) ON DELETE CASCADE
+CREATE TABLE `discussion` (
+  `discussion_id` int(11) NOT NULL,
+  `thumbnail` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `poll_responses`
---
-
-CREATE TABLE `poll_responses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `poll_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `response` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`poll_id`) REFERENCES `content`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`user_id`) REFERENCES `userdb`(`userID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
 
 --
 -- Dumping data for table `discussion`
@@ -177,14 +152,124 @@ INSERT INTO `discussion` (`discussion_id`, `thumbnail`, `title`, `description`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `likes`
+--
+
+CREATE TABLE `likes` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll_responses`
+--
+
+CREATE TABLE `poll_responses` (
+  `id` int(11) NOT NULL,
+  `poll_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `response` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userdb`
+--
+
+CREATE TABLE `userdb` (
+  `userID` int(11) NOT NULL,
+  `role` enum('User','Admin') NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `bio` text DEFAULT NULL,
+  `interests` text DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
 -- Dumping data for table `userdb`
 --
 
 INSERT INTO `userdb` (`userID`, `role`, `email`, `username`, `password`, `bio`, `interests`, `profile_picture`) VALUES
 (1, 'Admin', 'admin@email.com', 'admin', '$2y$10$O2S0ezDjv4Su4Gr644kvKerjDeVEQNpLBDsBkRlsmrRCO.Pf/hBZ6', '', '', 'https://pm1.narvii.com/5805/b81bc97550c6888482a4bfea40d16293271ad1fe_hq.jpg'),
-(2, 'User', 'user@email.com', 'user1', '$2y$10$sXDC.572yo4ef0H.YYxREOvF/oRoWEtYdbCyIbRzgcVaWQoLZSy/S', NULL, NULL, 'https://avatarfiles.alphacoders.com/129/thumb-1920-129094.jpg');
+(2, 'User', 'user@email.com', 'user1', '$2y$10$sXDC.572yo4ef0H.YYxREOvF/oRoWEtYdbCyIbRzgcVaWQoLZSy/S', 'test', '111', 'https://avatarfiles.alphacoders.com/129/thumb-1920-129094.jpg'),
+(3, 'User', 'ac@email.com', 'ac', '$2y$10$iRkiFgedYGlBRgH9HPcSguDwA75L632II8Ppx/p.3m54XTljLRC.6', NULL, NULL, NULL);
 
--- --------------------------------------------------------
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `discussion_id` (`discussion_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `comment_replies`
+--
+ALTER TABLE `comment_replies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comment_id` (`comment_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `comment_reports`
+--
+ALTER TABLE `comment_reports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comment_id` (`comment_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `comment_votes`
+--
+ALTER TABLE `comment_votes`
+  ADD PRIMARY KEY (`comment_id`,`user_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `content`
+--
+ALTER TABLE `content`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `discussion`
+--
+ALTER TABLE `discussion`
+  ADD PRIMARY KEY (`discussion_id`);
+
+--
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `poll_responses`
+--
+ALTER TABLE `poll_responses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `poll_id` (`poll_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `userdb`
+--
+ALTER TABLE `userdb`
+  ADD PRIMARY KEY (`userID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -194,13 +279,31 @@ INSERT INTO `userdb` (`userID`, `role`, `email`, `username`, `password`, `bio`, 
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `comment_replies`
+--
+ALTER TABLE `comment_replies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `comment_reports`
+--
+ALTER TABLE `comment_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `content`
+--
+ALTER TABLE `content`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `discussion`
 --
 ALTER TABLE `discussion`
-  MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -218,6 +321,55 @@ ALTER TABLE `poll_responses`
 -- AUTO_INCREMENT for table `userdb`
 --
 ALTER TABLE `userdb`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`discussion_id`) REFERENCES `discussion` (`discussion_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userdb` (`userID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `comment_replies`
+--
+ALTER TABLE `comment_replies`
+  ADD CONSTRAINT `comment_replies_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comment_replies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userdb` (`userID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `comment_reports`
+--
+ALTER TABLE `comment_reports`
+  ADD CONSTRAINT `comment_reports_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comment_reports_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userdb` (`userID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `comment_votes`
+--
+ALTER TABLE `comment_votes`
+  ADD CONSTRAINT `comment_votes_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comment_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userdb` (`userID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `content` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userdb` (`userID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `poll_responses`
+--
+ALTER TABLE `poll_responses`
+  ADD CONSTRAINT `poll_responses_ibfk_1` FOREIGN KEY (`poll_id`) REFERENCES `content` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `poll_responses_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userdb` (`userID`) ON DELETE CASCADE;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
