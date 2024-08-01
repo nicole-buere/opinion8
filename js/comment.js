@@ -154,27 +154,31 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('report-button')) {
             const commentId = event.target.getAttribute('data-comment-id');
+            const reason = prompt('Please provide a reason for reporting this comment:');
 
-            fetch('report_comment.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    'comment_id': commentId
+            if (reason) {
+                fetch('report_comment.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'comment_id': commentId,
+                        'reason': reason
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (!result.error) {
-                    alert('Comment reported successfully.');
-                } else {
-                    console.error(result.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(result => {
+                    if (!result.error) {
+                        alert('Comment reported successfully.');
+                    } else {
+                        console.error(result.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
         }
     });
 });
