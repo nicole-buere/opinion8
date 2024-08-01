@@ -139,29 +139,22 @@
         <a href="privacy_policy.php">Privacy Policy</a>
     </footer>
     
+    <script src="../js/discussion.js"></script>
     <script src="../js/comment.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-
-        dropdownToggle.addEventListener('click', function(event) {
-            event.preventDefault();
-            const isVisible = dropdownMenu.style.display === 'block';
-            dropdownMenu.style.display = isVisible ? 'none' : 'block';
-        });
-
-        document.addEventListener('click', function(event) {
-            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
-
-        // Voting functionality
         const proVoteButton = document.querySelector('.pro-vote-button');
         const antiVoteButton = document.querySelector('.anti-vote-button');
         const proVoteCount = document.getElementById('pro-vote-count');
         const antiVoteCount = document.getElementById('anti-vote-count');
+
+        // Load vote counts on page load
+        fetch('get_vote_counts.php?discussion_id=' + proVoteButton.getAttribute('data-discussion-id'))
+            .then(response => response.json())
+            .then(data => {
+                proVoteCount.textContent = data.pro_votes;
+                antiVoteCount.textContent = data.anti_votes;
+            });
 
         proVoteButton.addEventListener('click', function() {
             handleVote('pro');
@@ -188,6 +181,8 @@
                 } else {
                     proVoteCount.textContent = data.pro_votes;
                     antiVoteCount.textContent = data.anti_votes;
+                    proVoteButton.disabled = (voteType === 'pro');
+                    antiVoteButton.disabled = (voteType === 'anti');
                 }
             });
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2024 at 09:44 PM
+-- Generation Time: Aug 01, 2024 at 10:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -152,13 +152,6 @@ CREATE TABLE `discussion_votes` (
   `user_id` int(11) NOT NULL,
   `vote_type` enum('pro','anti') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `discussion_votes`
---
-
-INSERT INTO `discussion_votes` (`id`, `discussion_id`, `user_id`, `vote_type`) VALUES
-(4, 1, 2, 'pro');
 
 -- --------------------------------------------------------
 
@@ -327,7 +320,7 @@ ALTER TABLE `discussion`
 -- AUTO_INCREMENT for table `discussion_votes`
 --
 ALTER TABLE `discussion_votes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `likes`
