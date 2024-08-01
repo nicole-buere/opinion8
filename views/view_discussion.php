@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="../css/discussion.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/comment.css"> 
+    
 </head>
 <body>
     <!-- header -->
@@ -90,7 +92,7 @@
                             $downvote_count = $comment['downvote_count'];
                             $user_vote = $comment['user_vote'];
                     ?>
-                        <div class="comment" id="comment-<?php echo $comment_id; ?>">
+                        <div class="comment-container" id="comment-<?php echo $comment_id; ?>">
                             <p><strong><?php echo $username; ?>:</strong> <?php echo nl2br($comment_text); ?></p>
                             <div class="comment-actions">
                                 <button class="reply-button" data-comment-id="<?php echo $comment_id; ?>">Reply</button>
@@ -147,6 +149,5 @@
         });
     });
     </script>
-    
 </body>
 </html>

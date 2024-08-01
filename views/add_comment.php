@@ -27,32 +27,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $commentStmt = $conn->prepare($commentQuery);
             $commentStmt->bind_param("i", $comment_id);
             $commentStmt->execute();
-            $comment = $commentStmt->get_result()->fetch_assoc();
+            $newComment = $commentStmt->get_result()->fetch_assoc();
 
-            // Fetch replies for the comment if needed
-            $repliesQuery = "
-                SELECT r.id, r.reply, u.username
-                FROM comment_replies r
-                JOIN userdb u ON r.user_id = u.userID
-                WHERE r.comment_id = ?
-            ";
-            $repliesStmt = $conn->prepare($repliesQuery);
-            $repliesStmt->bind_param("i", $comment_id);
-            $repliesStmt->execute();
-            $repliesResult = $repliesStmt->get_result();
-            $replies = $repliesResult->fetch_all(MYSQLI_ASSOC);
-            $comment['replies'] = $replies;
-
-            echo json_encode($comment);
+            // Return the new comment as a JSON response
+            echo json_encode($newComment);
         } else {
-            echo json_encode(["error" => "Error: " . $stmt->error]);
+            http_response_code(500);
+            echo json_encode(['error' => 'Failed to add comment.']);
         }
 
         $stmt->close();
     } else {
-        echo json_encode(["error" => "Invalid input or user not logged in."]);
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid input.']);
     }
-
-    $conn->close();
 }
+
+$conn->close();
 ?>

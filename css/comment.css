@@ -1,0 +1,76 @@
+/* Styles for the comment container */
+.comment {
+    background-color: #f9f9f9; /* Light gray background for comments */
+    border: 1px solid #ddd;    /* Border to separate comments */
+    border-radius: 8px;        /* Rounded corners */
+    padding: 15px;             /* Padding inside the comment box */
+    margin-bottom: 10px;       /* Space between comments */
+    position: relative;        /* Position relative for absolute positioning of reply form */
+}
+
+/* Styles for the comment actions */
+.comment-actions {
+    margin-top: 10px;          /* Space between comment text and actions */
+    display: flex;             /* Flexbox for aligning actions horizontally */
+    gap: 10px;                 /* Space between actions */
+}
+
+/* Styles for buttons inside comment actions */
+.comment-actions button {
+    background-color: #007bff; /* Blue background for buttons */
+    color: #fff;               /* White text color */
+    border: none;              /* Remove border */
+    padding: 5px 10px;        /* Padding inside buttons */
+    border-radius: 5px;       /* Rounded corners for buttons */
+    cursor: pointer;          /* Pointer cursor on hover */
+}
+
+/* Hover effect for buttons */
+.comment-actions button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styles for reply form */
+.reply-form {
+    margin-top: 10px;          /* Space between comment actions and reply form */
+    border-top: 1px solid #ddd; /* Border to separate reply form */
+    padding-top: 10px;         /* Padding at the top of the reply form */
+}
+
+/* Styles for the textarea inside reply form */
+.reply-form textarea {
+    width: 100%;               /* Full width of the reply form */
+    height: 60px;              /* Fixed height for textarea */
+    padding: 10px;            /* Padding inside textarea */
+    border: 1px solid #ddd;   /* Border for textarea */
+    border-radius: 5px;       /* Rounded corners for textarea */
+}
+
+/* Styles for submit button inside reply form */
+.reply-form button {
+    background-color: #28a745; /* Green background for submit button */
+    color: #fff;               /* White text color */
+    border: none;              /* Remove border */
+    padding: 5px 10px;        /* Padding inside button */
+    border-radius: 5px;       /* Rounded corners for button */
+    cursor: pointer;          /* Pointer cursor on hover */
+}
+
+/* Hover effect for submit button */
+.reply-form button:hover {
+    background-color: #76A4A3; /* Darker green on hover */
+}
+
+/* Styles for replies */
+.replies {
+    margin-top: 10px;         /* Space between the reply form and replies */
+    padding-left: 20px;      /* Indentation for replies */
+    border-left: 2px solid #b9b8b8; /* Border to separate replies from comments */
+}
+
+.reply {
+    background-color: #b5b8e6; /* Slightly different background color for replies */
+    padding: 10px;           /* Padding inside replies */
+    border-radius: 5px;      /* Rounded corners for replies */
+    margin-bottom: 10px;     /* Space between replies */
+}
