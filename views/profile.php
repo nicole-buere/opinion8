@@ -1,4 +1,3 @@
-<!-- page where you view your profile -->
 <?php
 session_start();
 include '../includes/db.php';
@@ -57,18 +56,28 @@ $stmt->close();
     </div>
 
     <div class="profile-container">
-        <h1>My Profile</h1>
-        <div class="profile-content">
-            <div class="profile-picture-wrapper">
-                <img src="<?php echo htmlspecialchars($profilePicture) ?: '../assets/user.png'; ?>" alt="Profile Picture" class="profile-picture">
-            </div>
-            <div class="profile-info">
-                <h2><?php echo htmlspecialchars($username); ?></h2>
-                <p><strong>Role:</strong> <?php echo htmlspecialchars($role); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-                <p><strong>Bio:</strong> <?php echo nl2br(htmlspecialchars($bio)); ?></p>
-                <p><strong>Interests:</strong> <?php echo nl2br(htmlspecialchars($interests)); ?></p>
-            </div>
+        <div class="profile-picture-wrapper">
+            <img src="<?php echo htmlspecialchars($profilePicture) ?: '../assets/user.png'; ?>" alt="Profile Picture" class="profile-picture">
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" disabled>
+        </div>
+        <div class="form-group">
+            <label for="role">User role: Ex: admin</label>
+            <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($role); ?>" disabled>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
+        </div>
+        <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio" disabled><?php echo htmlspecialchars($bio); ?></textarea>
+        </div>
+        <div class="form-group">
+            <label for="interests">Interests</label>
+            <textarea id="interests" name="interests" disabled><?php echo htmlspecialchars($interests); ?></textarea>
         </div>
     </div>
 

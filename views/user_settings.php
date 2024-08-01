@@ -31,6 +31,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
     <title>User Settings</title>
     <link rel="stylesheet" href="../css/user_settings.css">
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
 </head>
 <body>
     <!-- header -->
@@ -85,7 +86,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                             <label for="username">Username</label>
                             <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('username')">
                         </div>
-                        <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" disabled>
+                        <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>">
                     </div>
                     <!-- email -->
                     <div class="form-group">
@@ -93,7 +94,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                             <label for="email">Email</label>
                             <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('email')">
                         </div>
-                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
                     </div>
                     <!-- bio -->
                     <div class="form-group">
@@ -101,7 +102,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                             <label for="bio">Bio</label>
                             <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('bio')">
                         </div>
-                        <textarea id="bio" name="bio" disabled><?php echo htmlspecialchars($bio); ?></textarea>
+                        <textarea id="bio" name="bio"><?php echo htmlspecialchars($bio); ?></textarea>
                     </div>
                     <!-- interests -->
                     <div class="form-group">
@@ -109,12 +110,7 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                             <label for="interests">Interests</label>
                             <img src="../assets/pen.png" alt="Edit" class="edit-icon" onclick="enableEditing('interests')">
                         </div>
-                        <textarea id="interests" name="interests" disabled><?php echo htmlspecialchars($interests); ?></textarea>
-                    </div>
-                    <!-- change password -->
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <button type="button" class="change-password-button" onclick="openChangePassword()">Change Password</button>
+                        <textarea id="interests" name="interests"><?php echo htmlspecialchars($interests); ?></textarea>
                     </div>
                 </div>
             </div>
@@ -124,24 +120,6 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                 <button type="button" class="view-profile-button" onclick="window.location.href='profile.php'">View My Profile</button>
             </div>
         </form>
-
-        <!-- Change Password Modal -->
-        <div id="change-password-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeChangePassword()">&times;</span>
-                <h2>Change Password</h2>
-                <form id="change-password-form">
-                    <div class="form-group">
-                        <label for="new-password">New Password</label>
-                        <input type="password" id="new-password" name="new_password">
-                    </div>
-                    <div class="modal-buttons">
-                        <button type="button" class="cancel-button" onclick="closeChangePassword()">Cancel</button>
-                        <button type="button" onclick="changePassword()">Change Password</button>
-                    </div>
-                </form>
-            </div>
-        </div>
 
         <!-- Change Profile Picture Modal -->
         <div id="change-picture-modal" class="modal">
@@ -166,14 +144,6 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
         function enableEditing(id) {
             document.getElementById(id).removeAttribute('disabled');
             document.getElementById(id).focus();
-        }
-
-        function openChangePassword() {
-            document.getElementById('change-password-modal').style.display = 'flex';
-        }
-
-        function closeChangePassword() {
-            document.getElementById('change-password-modal').style.display = 'none';
         }
 
         function openChangePictureModal() {
@@ -210,39 +180,6 @@ $homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homep
                       document.getElementById('message').style.display = 'block';
                   }
               });
-        });
-
-        function changePassword() {
-            var formData = new FormData(document.getElementById('change-password-form'));
-            formData.append('action', 'change_password');
-
-            fetch('../actions/user_settings_action.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      alert('Password changed successfully.');
-                      closeChangePassword();
-                  }
-              });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
-
-            dropdownToggle.addEventListener('click', function(event) {
-                event.preventDefault();
-                const isVisible = dropdownMenu.style.display === 'block';
-                dropdownMenu.style.display = isVisible ? 'none' : 'block';
-            });
-
-            document.addEventListener('click', function(event) {
-                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
-            });
         });
     </script>
 </body>
