@@ -1,0 +1,176 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .alt-logo {
+    height: 40px;
+    margin-left: 20px;
+}
+
+.header .button.primary {
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.header .search-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.header .search-bar-wrapper {
+    position: relative;
+    width: 400px;
+}
+
+.header .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header .search-bar {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.header .filter-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header .dropdown {
+    position: relative;
+    margin-right: 20px;
+}
+
+.header .dropdown-toggle {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.header .icon.user-icon {
+    height: 40px;
+    border-radius: 50%;
+}
+
+.header .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.header .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.header .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.header .dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+    background: #fff;
+    margin-top: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.timestamp {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #777;
+}
+
+.analytics {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.discussion-summary {
+    padding: 20px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+}
+
+.discussion-summary h2 {
+    margin-top: 0;
+    color: #555;
+}
+
+.discussion-summary p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.summary-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-item {
+    background: #eef;
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.summary-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.summary-item .count {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.summary-item .poll {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+}
