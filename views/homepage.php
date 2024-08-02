@@ -10,46 +10,48 @@
         .discussion-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px; /* Increased gap between discussion boxes */
         }
         .discussion {
             border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 10px; /* Slightly more rounded corners */
+            padding: 20px; /* Increased padding for more space inside the box */
             background-color: #f9f9f9;
             display: flex;
-            gap: 15px;
+            gap: 20px; /* Increased gap between thumbnail and content */
         }
         .discussion img {
-            width: 100px;
-            height: 100px;
+            width: 150px; /* Increased width */
+            height: 150px; /* Increased height */
             object-fit: cover;
-            border-radius: 5px;
+            border-radius: 10px; /* More rounded thumbnail corners */
         }
         .discussion-content {
             flex: 1;
         }
         .discussion h3 {
-            font-size: 20px;
+            font-size: 24px; /* Larger font size for the title */
             margin: 0;
             color: #333;
         }
         .discussion p {
             margin: 10px 0;
             color: #555;
+            font-size: 16px; /* Larger font size for the description */
         }
         .discussion-date {
             color: #777;
-            font-size: 14px;
+            font-size: 16px; /* Consistent font size with the description */
         }
         .view-discussion {
             background-color: #007bff;
             color: #fff;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px; /* Slightly increased padding */
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            font-size: 16px; /* Larger font size for the button */
         }
         .view-discussion:hover {
             background-color: #0056b3;
@@ -62,7 +64,7 @@
         <a href="../views/homepage.php" class="button primary">Home</a>
         <div class="search-container">
             <div class="search-bar-wrapper">
-                <img src="../assets/search_icon.png" alt="search icon" class="search-icon">
+                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
                 <form action="search_discussions.php" method="GET">
                     <input type="text" name="query" placeholder="What are you looking for?" class="search-bar">
                     <button type="submit" class="search-link">
