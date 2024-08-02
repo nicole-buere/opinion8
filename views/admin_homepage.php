@@ -12,7 +12,7 @@
         <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <!-- home button -->
-        <a href="../views/homepage.php" class="button primary">Home</a>
+        <a href="../views/admin_homepage.php" class="button primary">Home</a>
         <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
@@ -74,10 +74,11 @@
             </div>
             <div class="desc">
                 <h3>Manage Discussion</h3>
-                <p>Take control of your discussions: delete, edit posts, and add updates.</p>
+                <p>Take control of your discussions: delete, edit, and add updates.</p>
             </div>
             <div class="icon-button">
-                <img src="../assets/go-button.png" alt="manage icon">
+                <a href="manage_discussion.php" class="go-button">
+                 <img src="../assets/go-button.png" alt="Go button">
             </div>
         </div>
 
@@ -95,7 +96,8 @@
         </div>
     </div>
 
-    <script>
+    <script> 
+    // always add this script for user menu dropdown to work (in header) for all pages
           // script for user drop down menu
           document.addEventListener('DOMContentLoaded', function() {
             const dropdownToggle = document.querySelector('.dropdown-toggle');
