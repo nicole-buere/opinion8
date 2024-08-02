@@ -40,15 +40,14 @@ $homeUrl = ($role === 'Admin') ? '../views/admin_homepage.php' : '../views/homep
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <!-- home button -->
         <a href="<?php echo htmlspecialchars($homeUrl); ?>" class="button primary">Home</a>
-
-        <!-- search bar -->
+         <!-- hsearch button -->
         <div class="search-container">
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search icon" class="search-icon">
-                <input type="text" placeholder="What are you looking for?" class="search-bar">
-                <a href="search.php" class="search-link">
-                    <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
-                </a>
+                <form action="search_discussions.php" method="GET">
+                    <input type="text" name="query" placeholder="What are you looking for?" class="search-bar">
+
+                </form>
             </div>
         </div>
         <!-- dropdown menu in profile button  -->
