@@ -111,7 +111,7 @@ $searchTerm = isset($_GET['query']) ? $_GET['query'] : '';
 
     <footer>
         <a href="about_us.php">About Us</a> | 
-        <a href="contact_us.php">Contact Us</a> | 
+        
         <a href="privacy_policy.php">Privacy Policy</a>
     </footer>
 

@@ -45,7 +45,7 @@
                     </p>
                     <p id="links">
                         <a href="about_us.php" class="text-link">About Us</a> | 
-                        <a href="contact_us.php" class="text-link">Contact Us</a> | 
+                        
                         <a href="privacy_policy.php" class="text-link">Privacy Policy</a>
                     </p>
                 </form>

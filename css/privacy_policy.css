@@ -35,6 +35,7 @@ header h1 {
 
 main {
     padding: 20px;
+    flex: 1; /* Allow main content to expand */
 }
 
 h2 {

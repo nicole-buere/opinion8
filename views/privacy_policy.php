@@ -30,10 +30,7 @@
             </section>
         </main>
 
-        <footer>
-            <p>&copy; 2024 Opinion8. All rights reserved.</p>
-            <a href="index.php">Back to Login</a>
-        </footer>
+
     </div>
 </body>
 </html>
