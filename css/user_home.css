@@ -1,0 +1,67 @@
+/* Center-align content-box in its parent container */
+.content-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    width: 100%; /* Ensure it takes up full width of the parent */
+}
+
+/* Center the greeting-box */
+.greeting-box {
+    display: flex;
+    flex-direction: row;
+    margin: 30px auto; /* Center horizontally and add vertical margin */
+    width: 1450px;
+    height: 250px;
+    background: linear-gradient(45deg, #232da7, #c46abd, #5cd2ad, #232da7, #c46abd, #5cd2ad);
+    background-size: 600% 600%;
+    animation: gradientWave 20s ease infinite;
+}
+
+/* Keyframes for gradient animation */
+@keyframes gradientWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Center-align greet-text inside greeting-box */
+.greet-text {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center horizontally */
+    width: 900px;
+    font-family: 'Inter';
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text horizontally */
+}
+
+/* Style for h1 in greet-text */
+.greet-text h1 {
+    color: #dee3e3;
+    font-size: 50px;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Style for p in greet-text */
+.greet-text p {
+    color: #dee3e3;
+    font-size: 16px;
+    font-family: 'Inter';
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    line-height: 1.5; /* Line spacing */
+}
+
+/* Adjust .art to be centered if necessary */
+.art {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center horizontally */
+}

@@ -84,8 +84,22 @@
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="../css/user_home.css">
+
+<div class="content-box">
+    <div class="greeting-box">
+        <div class="greet-text">
+            <h1>Welcome!</h1>
+            <p>Dive into a world of ideas at Opinion8. Share your voice, spark a debate.
+                <br>Connect, share, and grow together!</p>
+        </div>
+        <div class="art">
+            <img src="../assets/greet-art.png" alt="greeting-art">
+        </div>
+    </div>
 
     <div class="timeline-box">
+        
         <div class="content">
             <!-- Other content like posts can be fetched and displayed here -->
 
