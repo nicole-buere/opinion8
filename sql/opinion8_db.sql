@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2024 at 01:25 PM
+-- Generation Time: Aug 02, 2024 at 01:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -139,7 +139,8 @@ CREATE TABLE `discussion` (
 INSERT INTO `discussion` (`discussion_id`, `thumbnail`, `title`, `description`, `date_created`) VALUES
 (1, 'https://static01.nyt.com/images/2023/03/29/multimedia/23HAMREX2-pineapple-ham-pizza-qwct/HAMREX2-pineapple-ham-pizza-qwct-superJumbo.jpg', 'Pineapple on Pizza: Delicious or Disastrous?', 'The debate over pineapple on pizza has been polarizing for years. Is it a sweet and savory delight or a culinary mistake? Share your views on this intriguing topic!', '2024-07-26 17:44:42'),
 (2, 'https://image.cnbcfm.com/api/v1/image/106352552-1579818429413gettyimages-968890648.jpg?v=1579818498', 'Should Remote Work Become the New Standard for All Industries?', 'Remote work has transformed our workdays, but is it time to make it the norm for every industry? We’ll explore if the freedom of working from anywhere outweighs the need for in-person collaboration.', '2024-07-26 17:46:03'),
-(3, 'https://assets.clevelandclinic.org/transform/cd71f4bd-81d4-45d8-a450-74df78e4477a/Apples-184940975-770x533-1_jpg', 'test create disc ', 'pls delete after', '2024-08-02 19:22:54');
+(3, 'https://assets.clevelandclinic.org/transform/cd71f4bd-81d4-45d8-a450-74df78e4477a/Apples-184940975-770x533-1_jpg', 'test create disc ', 'pls delete after', '2024-08-02 19:22:54'),
+(4, 'https://assets.clevelandclinic.org/transform/cd71f4bd-81d4-45d8-a450-74df78e4477a/Apples-184940975-770x533-1_jpg', 'test create disc ', 'pls delete after', '2024-08-02 19:25:38');
 
 -- --------------------------------------------------------
 
@@ -186,6 +187,13 @@ CREATE TABLE `poll` (
   `choice1` varchar(255) NOT NULL,
   `choice2` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `poll`
+--
+
+INSERT INTO `poll` (`poll_id`, `poll_title`, `choice1`, `choice2`) VALUES
+(1, 'do you like apple?', 'yes i like apple', 'no i dont like apple');
 
 -- --------------------------------------------------------
 
@@ -341,7 +349,7 @@ ALTER TABLE `content`
 -- AUTO_INCREMENT for table `discussion`
 --
 ALTER TABLE `discussion`
-  MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `discussion_votes`
@@ -359,7 +367,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `poll`
 --
 ALTER TABLE `poll`
-  MODIFY `poll_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `poll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `poll_responses`
