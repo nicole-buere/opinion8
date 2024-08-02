@@ -78,11 +78,12 @@
             </div>
             <div class="icon-button">
                 <a href="manage_discussion.php" class="go-button">
-                 <img src="../assets/go-button.png" alt="Go button">
+                    <img src="../assets/go-button.png" alt="Go button">
+                </a>
             </div>
         </div>
 
-        <div class="task-item view-analytics">
+        <div class="task-item track-engagement">
             <div class="icon">
                 <img src="../assets/analytics.png" alt="analytics icon">
             </div>
@@ -91,9 +92,12 @@
                 <p>Discover the impact of your posts through detailed engagement and interaction metrics.</p>
             </div>
             <div class="icon-button">
-                <img src="../assets/go-button.png" alt="analytics icon">
+                <a href="track_engagement.php" class="go-button">
+                    <img src="../assets/go-button.png" alt="Go button">
+                </a>
             </div>
         </div>
+
     </div>
 
     <script> 
