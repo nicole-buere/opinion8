@@ -25,19 +25,17 @@ while ($discussion = $discussionsResult->fetch_assoc()) {
     $participantsStmt->execute();
     $participants = $participantsStmt->get_result()->fetch_assoc();
 
-    // Fetch poll result (assuming one poll per discussion)
-    $pollQuery = "
-        SELECT choice1, choice2, 
-               (SELECT COUNT(*) FROM poll_responses WHERE poll_id = poll.poll_id AND response = 1) AS choice1_votes, 
-               (SELECT COUNT(*) FROM poll_responses WHERE poll_id = poll.poll_id AND response = 2) AS choice2_votes 
-        FROM poll 
-        WHERE poll_id = ?
+    // Fetch vote counts
+    $votesQuery = "
+        SELECT
+            (SELECT COUNT(*) FROM discussion_votes WHERE discussion_id = ? AND vote_type = 'pro') AS pro_votes,
+            (SELECT COUNT(*) FROM discussion_votes WHERE discussion_id = ? AND vote_type = 'anti') AS anti_votes
     ";
-    $pollStmt = $conn->prepare($pollQuery);
-    $pollStmt->bind_param("i", $discussion_id);
-    $pollStmt->execute();
-    $poll = $pollStmt->get_result()->fetch_assoc();
-    $poll_result = $poll ? "{$poll['choice1']} ({$poll['choice1_votes']} votes) vs {$poll['choice2']} ({$poll['choice2_votes']} votes)" : "No poll";
+    $votesStmt = $conn->prepare($votesQuery);
+    $votesStmt->bind_param("ii", $discussion_id, $discussion_id);
+    $votesStmt->execute();
+    $votes = $votesStmt->get_result()->fetch_assoc();
+    $vote_result = $votes ? "{$votes['pro_votes']} Pro vs {$votes['anti_votes']} Anti" : "No votes";
 
     // Count number of comments
     $commentsQuery = "SELECT COUNT(*) AS comment_count FROM comments WHERE discussion_id = ?";
@@ -50,7 +48,7 @@ while ($discussion = $discussionsResult->fetch_assoc()) {
         'discussion_id' => $discussion_id,
         'title' => $discussion['title'],
         'participant_count' => $participants['participant_count'],
-        'poll_result' => $poll_result,
+        'vote_result' => $vote_result,
         'comment_count' => $comments['comment_count'],
     ];
 }

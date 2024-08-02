@@ -24,7 +24,7 @@
                 </a>
             </div>
         </div>
-        <!-- dropdown menu in profile button  -->
+        <!-- dropdown menu in profile button -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" title="User Menu">
                 <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
@@ -65,7 +65,7 @@
                             <div><span class="analytics-label">Discussion ID:</span> <span class="analytics-value">${discussion.discussion_id}</span></div>
                             <div><span class="analytics-label">Title:</span> <span class="analytics-value">${discussion.title}</span></div>
                             <div><span class="analytics-label">Number of participants:</span> <span class="analytics-value">${discussion.participant_count}</span></div>
-                            <div><span class="analytics-label">Poll result:</span> <span class="analytics-value">${discussion.poll_result}</span></div>
+                            <div><span class="analytics-label">Votes (Pro/Anti):</span> <span class="analytics-value">${discussion.vote_result}</span></div>
                             <div><span class="analytics-label">Number of comments:</span> <span class="analytics-value">${discussion.comment_count}</span></div>
                         `;
                         discussionsList.appendChild(discussionItem);
