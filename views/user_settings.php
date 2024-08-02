@@ -20,7 +20,7 @@ $stmt->bind_result($username, $role, $email, $bio, $interests, $profilePicture);
 $stmt->fetch();
 $stmt->close();
 
-$homeUrl = ($role === 'admin') ? '../views/admin_homepage.php' : '../views/homepage.php';
+$homeUrl = ($role === 'Admin') ? '../views/admin_homepage.php' : '../views/homepage.php';
 ?>
 
 <!DOCTYPE html>

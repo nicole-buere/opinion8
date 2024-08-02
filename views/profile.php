@@ -30,7 +30,7 @@ $stmt->close();
         <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <!-- home button -->
-        <a href="<?php echo htmlspecialchars($role === 'admin' ? '../views/admin_homepage.php' : '../views/homepage.php'); ?>" class="button primary">Home</a>
+        <a href="<?php echo htmlspecialchars($role === 'Admin' ? '../views/admin_homepage.php' : '../views/homepage.php'); ?>" class="button primary">Home</a>
 
         <!-- search bar -->
         <div class="search-container">

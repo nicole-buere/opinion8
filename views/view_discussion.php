@@ -10,19 +10,22 @@
 <body>
     <!-- header -->
     <div class="header">
+        <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
-        <a href="../views/homepage.php" class="button primary">Home</a>
+        <!-- home button -->
+        <a href="<?php echo htmlspecialchars($role === 'admin' ? '../views/admin_homepage.php' : '../views/homepage.php'); ?>" class="button primary">Home</a>
+
+        <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search icon" class="search-icon">
                 <form action="search_discussions.php" method="GET">
                     <input type="text" name="query" placeholder="What are you looking for?" class="search-bar">
-                    <button type="submit" class="search-link">
-                        <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
-                    </button>
+
                 </form>
             </div>
         </div>
+        <!-- dropdown menu in profile button  -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" title="User Menu">
                 <img src="../assets/user.png" alt="user-icon" class="icon user-icon">

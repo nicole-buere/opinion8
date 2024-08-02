@@ -54,11 +54,10 @@ $searchTerm = isset($_GET['query']) ? $_GET['query'] : '';
             <div class="search-bar-wrapper">
                 <img src="../assets/search icon.png" alt="search icon" class="search-icon">
                 <form action="search_discussions.php" method="GET">
-                    <input type="text" name="query" placeholder="What are you looking for?" class="search-bar" value="<?php echo htmlspecialchars($searchTerm); ?>">
-                    <button type="submit" class="search-link">
-                        <img src="../assets/advance_search_filter.png" alt="filter-icon" class="filter-icon">
-                    </button>
+                    <input type="text" name="query" placeholder="What are you looking for?" class="search-bar">
+
                 </form>
+            </div>
             </div>
         </div>
         <div class="dropdown">
