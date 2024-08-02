@@ -14,21 +14,29 @@
         <main>
             <section>
                 <h2>Introduction</h2>
-                <p>Provide a detailed explanation of how Opinion8 functions, including its key features and benefits.</p>
+                <p>With negativity, offensive exchanges or debates and fake news spreading around the world because of social media platforms like Facebook, Twitter, and Reddit, Our debate platform, Opinion8, aims to provide a solution. Opinion8 is an online debate platform designed for respectful and informed discussions on current events, formal topics and other topics. This platform offers a safe space where users can express their opinions freely, without the fear of hate speech or retaliation.</p>
             </section>
 
             <section>
                 <h2>Features</h2>
                 <ul>
-                    <li>Feature 1</li>
-                    <li>Feature 2</li>
-                    <li>Feature 3</li>
+                    <li>User Profile Customization</li>
+                    <li>Create Debate Discussions</li>
+                    <li>Commenting/Replying in Debate Discussions</li>
+                    <li>Comment Voting System</li>
+                    <li>Report Offensive Posts or Comments</li>
+                    <li>View Live Updates</li>
                 </ul>
             </section>
 
             <section>
                 <h2>How to Get Started</h2>
-                <p>Instructions on how users can start using Opinion8, including signing up, creating a profile, and participating in discussions.</p>
+                <ul>
+                    <li>Step 1: Register- Go to the Opinion8 website, click "Sign Up," and fill in your personal details to create an account.</li>
+                    <li>Step 2: Profile Setup- Add a profile picture, list your hobbies and interests, and customize your profile to connect with like-minded users.</li>
+                    <li>Step 3: Navigation- Use the main menu to access the timeline for recent updates, search for specific topics, and join debate forums.</li>
+                    <li>Step 4: Engagement- Participate in debates, vote on comments, and share your opinions respectfully. Utilize the search and filtering options to explore topics that interest you.</li>
+                </ul>
             </section>
         </main>
 

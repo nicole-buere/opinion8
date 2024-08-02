@@ -1,4 +1,6 @@
-/* Example styles for howitworks.php */
+/* css for header of site */
+@import url('https://fonts.googleapis.com/css?family=Inter'); /* please always copy this line for uniform font style  */
+
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -28,6 +30,9 @@ header h1 {
 
 main {
     padding: 20px;
+    background-color: white; /* White background for the main content */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow for main content */
+    margin: 20px;
 }
 
 h2 {
@@ -55,4 +60,57 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+/* Additional styles for the discussion topics */
+.discussion-topic {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-topic img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.discussion-topic .details {
+    flex: 1;
+}
+
+.discussion-topic .details h3 {
+    margin: 0;
+    color: #333;
+}
+
+.discussion-topic .details p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.discussion-topic .details .date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.discussion-topic .view-button {
+    text-align: right;
+}
+
+.discussion-topic .view-button button {
+    padding: 10px 20px;
+    background-color: #76a4a3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.discussion-topic .view-button button:hover {
+    background-color: #5c8987;
 }
