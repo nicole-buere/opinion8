@@ -1,4 +1,3 @@
-<!-- homepage.php -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +12,7 @@
         <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <!-- home button -->
-        <a href="../views/admin_homepage.php" class="button primary">Home</a>
+        <a href="admin_homepage.php" class="button primary">Home</a>
         <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
@@ -30,40 +29,38 @@
                 <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
             </a>
             <div class="dropdown-menu">
-                <a href="../views/profile.php">View My Profile</a>
-                <a href="../views/user_settings.php">User Settings</a>
-                <a href="../views/index.php">Logout</a>
+                <a href="profile.php">View My Profile</a>
+                <a href="user_settings.php">User Settings</a>
+                <a href="index.php">Logout</a>
             </div>
         </div>
     </div>
 
-  
     <div class="timeline-box">
-        discussion lists
+        <h2>Discussion Lists</h2>
+        <a href="../actions/manage_discussion_action.php" class="button primary">Manage Discussions</a>
     </div>
-
-
 
     <script>
         // script for user drop down menu
         document.addEventListener('DOMContentLoaded', function() {
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-            
-        // Toggle dropdown menu on click
-        dropdownToggle.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default anchor behavior
-        const isVisible = dropdownMenu.style.display === 'block';
-        dropdownMenu.style.display = isVisible ? 'none' : 'block';
-        console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
-        });
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+                
+            // Toggle dropdown menu on click
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                const isVisible = dropdownMenu.style.display === 'block';
+                dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
+            });
 
-        // Close dropdown menu if clicking outside of it
-        document.addEventListener('click', function(event) {
-        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.style.display = 'none';
-        }
-        });
+            // Close dropdown menu if clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
