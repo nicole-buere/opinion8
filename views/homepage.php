@@ -1,4 +1,3 @@
-<!-- homepage.php -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,55 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/engagement_analytics.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <style>
+        .discussion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .discussion {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            display: flex;
+            gap: 15px;
+        }
+        .discussion img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .discussion-content {
+            flex: 1;
+        }
+        .discussion h3 {
+            font-size: 20px;
+            margin: 0;
+            color: #333;
+        }
+        .discussion p {
+            margin: 10px 0;
+            color: #555;
+        }
+        .discussion-date {
+            color: #777;
+            font-size: 14px;
+        }
+        .view-discussion {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .view-discussion:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -14,11 +62,11 @@
         <a href="../views/homepage.php" class="button primary">Home</a>
         <div class="search-container">
             <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
+                <img src="../assets/search_icon.png" alt="search icon" class="search-icon">
                 <form action="search_discussions.php" method="GET">
                     <input type="text" name="query" placeholder="What are you looking for?" class="search-bar">
                     <button type="submit" class="search-link">
-                        <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
+                        <img src="../assets/advance_search_filter.png" alt="filter-icon" class="filter-icon">
                     </button>
                 </form>
             </div>
@@ -37,107 +85,34 @@
 
     <div class="timeline-box">
         <div class="content">
-            <?php
-            include('../includes/db.php');
-
-            $query = "SELECT * FROM content ORDER BY date DESC";
-            $result = $conn->query($query);
-
-            if ($result->num_rows > 0):
-                while ($row = $result->fetch_assoc()):
-                    $postId = $row['id'];
-                    $commentsQuery = "SELECT COUNT(*) AS comments_count FROM comments WHERE post_id = ?";
-                    $likesQuery = "SELECT COUNT(*) AS likes_count FROM likes WHERE post_id = ?";
-                    $pollsQuery = "SELECT COUNT(*) AS polls_count FROM poll_responses WHERE post_id = ?";
-
-                    $commentsStmt = $conn->prepare($commentsQuery);
-                    $likesStmt = $conn->prepare($likesQuery);
-                    $pollsStmt = $conn->prepare($pollsQuery);
-
-                    $commentsStmt->bind_param('i', $postId);
-                    $likesStmt->bind_param('i', $postId);
-                    $pollsStmt->bind_param('i', $postId);
-
-                    $commentsStmt->execute();
-                    $likesStmt->execute();
-                    $pollsStmt->execute();
-
-                    $commentsResult = $commentsStmt->get_result()->fetch_assoc();
-                    $likesResult = $likesStmt->get_result()->fetch_assoc();
-                    $pollsResult = $pollsStmt->get_result()->fetch_assoc();
-
-                    $commentsCount = $commentsResult['comments_count'];
-                    $likesCount = $likesResult['likes_count'];
-                    $pollsCount = $pollsResult['polls_count'];
-            ?>
-                
-                <div class="post">
-                    <h3><?php echo htmlspecialchars($row['topic']); ?></h3>
-                    <p>Date: <?php echo htmlspecialchars($row['date']); ?></p>
-                    <p>Type: <?php echo htmlspecialchars($row['type']); ?></p>
-                    <p><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
-                    <?php if ($row['type'] === 'poll'): ?>
-                        <div class="poll-options">
-                            <?php
-                            $poll_id = $row['id'];
-                            $poll_query = "SELECT * FROM poll_options WHERE poll_id = ?";
-                            $poll_stmt = $conn->prepare($poll_query);
-                            $poll_stmt->bind_param("i", $poll_id);
-                            $poll_stmt->execute();
-                            $poll_result = $poll_stmt->get_result();
-
-                            while ($poll_option = $poll_result->fetch_assoc()):
-                            ?>
-                                <div class="poll-option">
-                                    <input type="radio" name="poll_<?php echo $poll_id; ?>" value="<?php echo $poll_option['id']; ?>" id="poll_option_<?php echo $poll_option['id']; ?>">
-                                    <label for="poll_option_<?php echo $poll_option['id']; ?>"><?php echo htmlspecialchars($poll_option['option_text']); ?></label>
-                                </div>
-                            <?php endwhile; ?>
-                            <button class="vote-button" data-poll-id="<?php echo $poll_id; ?>">Vote</button>
-                        </div>
-                    <?php endif; ?>
-                    <div class="analytics-section">
-                        <h2>Engagement Overview</h2>
-                        <div class="analytics-item">
-                            <span class="analytics-label">Comments:</span>
-                            <span class="analytics-value"><?php echo $commentsCount; ?></span>
-                        </div>
-                        <div class="analytics-item">
-                            <span class="analytics-label">Likes:</span>
-                            <span class="analytics-value"><?php echo $likesCount; ?></span>
-                        </div>
-                        <div class="analytics-item">
-                            <span class="analytics-label">Poll Responses:</span>
-                            <span class="analytics-value"><?php echo $pollsCount; ?></span>
-                        </div>
-                    </div>
-                    <div class="engagement-actions">
-                        <button class="view-discussion" data-discussion-id="<?php echo $postId; ?>">View Discussion</button>
-                    </div>
-                </div>
-            <?php endwhile; ?>
-            <?php endif; ?>
+            <!-- Other content like posts can be fetched and displayed here -->
 
             <h2>Discussion Topics</h2>
-            <?php
-            $discussionQuery = "SELECT discussion_id, thumbnail, title, description, date_created FROM discussion";
-            $discussionResult = $conn->query($discussionQuery);
+            <div class="discussion-container">
+                <?php
+                include('../includes/db.php');
 
-            if ($discussionResult->num_rows > 0):
-                while ($discussion = $discussionResult->fetch_assoc()):
-            ?>
-                <div class="discussion">
-                    <h3><?php echo htmlspecialchars($discussion['title']); ?></h3>
-                    <img src="<?php echo htmlspecialchars($discussion['thumbnail']); ?>" alt="Thumbnail" width="100" height="100">
-                    <p><?php echo htmlspecialchars($discussion['description']); ?></p>
-                    <p><em>Created on: <?php echo htmlspecialchars($discussion['date_created']); ?></em></p>
-                    <button class="view-discussion" data-discussion-id="<?php echo $discussion['discussion_id']; ?>">View Discussion</button>
-                </div>
-            <?php endwhile; else: ?>
-                <p>No discussion topics available.</p>
-            <?php endif; ?>
+                $discussionQuery = "SELECT discussion_id, thumbnail, title, description, date_created FROM discussion";
+                $discussionResult = $conn->query($discussionQuery);
 
-            <?php $conn->close(); ?>
+                if ($discussionResult->num_rows > 0):
+                    while ($discussion = $discussionResult->fetch_assoc()):
+                ?>
+                    <div class="discussion">
+                        <img src="<?php echo htmlspecialchars($discussion['thumbnail']); ?>" alt="Thumbnail">
+                        <div class="discussion-content">
+                            <h3><?php echo htmlspecialchars($discussion['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($discussion['description']); ?></p>
+                            <p class="discussion-date"><em>Created on: <?php echo htmlspecialchars($discussion['date_created']); ?></em></p>
+                            <a href="view_discussion.php?discussion_id=<?php echo $discussion['discussion_id']; ?>" class="view-discussion">View Discussion</a>
+                        </div>
+                    </div>
+                <?php endwhile; else: ?>
+                    <p>No discussion topics available.</p>
+                <?php endif; ?>
+
+                <?php $conn->close(); ?>
+            </div>
         </div>
     </div>
 
@@ -168,20 +143,6 @@
                 button.addEventListener('click', function() {
                     const discussionId = this.getAttribute('data-discussion-id');
                     window.location.href = `view_discussion.php?discussion_id=${discussionId}`;
-                });
-            });
-
-            document.querySelectorAll('.vote-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const pollId = this.getAttribute('data-poll-id');
-                    const selectedOption = document.querySelector(`input[name="poll_${pollId}"]:checked`);
-                    if (selectedOption) {
-                        const optionId = selectedOption.value;
-                        // Handle the voting logic here
-                        console.log(`Voted for option ID: ${optionId} in poll ID: ${pollId}`);
-                    } else {
-                        alert("Please select an option to vote.");
-                    }
                 });
             });
         });

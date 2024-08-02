@@ -6,7 +6,6 @@
     <title>Discussion Topics</title>
     <link rel="stylesheet" href="../css/fetch.css">
     <style>
-        /* Add some styles for search bar */
         .search-container {
             margin-bottom: 20px;
         }
@@ -16,29 +15,40 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .discussion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
         .discussion-box {
             border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px 0;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
             display: flex;
+            gap: 15px;
         }
         .discussion-thumbnail {
             width: 100px;
             height: 100px;
-            margin-right: 10px;
+            object-fit: cover;
+            border-radius: 5px;
         }
         .discussion-content {
             flex: 1;
         }
         .discussion-title {
-            font-size: 18px;
+            font-size: 20px;
             margin: 0;
+            color: #333;
         }
         .discussion-description {
-            margin: 5px 0;
+            margin: 10px 0;
+            color: #555;
         }
         .discussion-date {
-            color: #666;
+            color: #777;
+            font-size: 14px;
         }
     </style>
     <script>
