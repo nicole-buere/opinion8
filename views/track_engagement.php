@@ -1,37 +1,11 @@
-<?php
-session_start();
-include '../includes/db.php';
-
-if (!isset($_SESSION['user_id'])) {
-    die('User not logged in.');
-}
-
-$userId = $_SESSION['user_id'];
-$query = "SELECT username, role FROM userdb WHERE userID = ?";
-$stmt = $conn->prepare($query);
-
-if ($stmt === false) {
-    die('Prepare failed: ' . htmlspecialchars($conn->error));
-}
-
-$stmt->bind_param('i', $userId);
-$stmt->execute();
-$stmt->bind_result($username, $role);
-$stmt->fetch();
-$stmt->close();
-
-$homeUrl = ($role === 'Admin') ? '../views/admin_homepage.php' : '../views/homepage.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discussion Analytics</title>
+    <title>All Discussions</title>
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="track_engagement.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../css/engagement_analytics.css">
 </head>
 <body>
     <!-- header -->
@@ -39,8 +13,7 @@ $homeUrl = ($role === 'Admin') ? '../views/admin_homepage.php' : '../views/homep
         <!-- logo -->
         <img src="../assets/alt_logo.png" alt="alt-logo" class="alt-logo">
         <!-- home button -->
-        <a href="<?php echo htmlspecialchars($homeUrl); ?>" class="button primary">Home</a>
-
+        <a href="admin_homepage.php" class="button primary">Home</a>
         <!-- search bar -->
         <div class="search-container">
             <div class="search-bar-wrapper">
@@ -57,63 +30,71 @@ $homeUrl = ($role === 'Admin') ? '../views/admin_homepage.php' : '../views/homep
                 <img src="../assets/user.png" alt="user-icon" class="icon user-icon">
             </a>
             <div class="dropdown-menu">
-                <a href="../views/profile.php">View My Profile</a>
-                <a href="../views/user_settings.php">User Settings</a>
-                <a href="../views/index.php">Logout</a>
+                <a href="profile.php">View My Profile</a>
+                <a href="user_settings.php">User Settings</a>
+                <a href="index.php">Logout</a>
             </div>
         </div>
     </div>
     
-    <div class="container">
-        <h1>Discussion Analytics</h1>
-        <p class="timestamp">Current Timestamp: <span id="current-timestamp"></span></p>
-        <div class="analytics" id="analytics">
-            <!-- Content will be populated by JavaScript -->
+    <!-- Analytics Section -->
+    <div class="analytics-container">
+        <h1>Discussions Analytics</h1>
+        <p class="timestamp">As of <span id="current-timestamp"></span></p>
+        <div class="analytics-section" id="discussions-list">
+            <!-- Discussion items will be populated here -->
         </div>
     </div>
-
+    
     <script>
-        $(document).ready(function() {
-            function fetchDiscussions() {
-                console.log("Fetching discussions..."); // Debug output
-                $.ajax({
-                    url: 'track_engagement_action.php',
-                    method: 'GET',
-                    success: function(data) {
-                        console.log("Data fetched: ", data); // Debug output
-                        const discussions = JSON.parse(data);
-                        console.log("Parsed discussions: ", discussions); // Debug output
-                        let html = '';
-                        discussions.forEach(discussion => {
-                            html += `
-                                <div class="discussion-summary">
-                                    <h2>${discussion.discussion_title}</h2>
-                                    <p><strong>Discussion ID:</strong> ${discussion.discussion_id}</p>
-                                    <p><strong>Performance Summary:</strong></p>
-                                    <div class="summary-details">
-                                        <div class="summary-item">
-                                            <p>Number of Participants:</p>
-                                            <p class="count">${discussion.num_participants}</p>
-                                        </div>
-                                        <div class="summary-item">
-                                            <p>Number of Comments:</p>
-                                            <p class="count">${discussion.num_comments}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        $('#analytics').html(html);
-                        $('#current-timestamp').text(new Date().toLocaleString());
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error fetching data:', textStatus, errorThrown);
-                    }
-                });
-            }
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentTimestamp = document.getElementById('current-timestamp');
+            const discussionsList = document.getElementById('discussions-list');
 
-            fetchDiscussions();
-            setInterval(fetchDiscussions, 60000); // Refresh data every minute
+            // Set current timestamp
+            currentTimestamp.textContent = new Date().toLocaleString();
+
+            // Fetch discussions data
+            fetch('../actions/track_engagement_action.php')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(discussion => {
+                        const discussionItem = document.createElement('div');
+                        discussionItem.classList.add('analytics-item-box');
+                        discussionItem.innerHTML = `
+                            <div><span class="analytics-label">Discussion ID:</span> <span class="analytics-value">${discussion.discussion_id}</span></div>
+                            <div><span class="analytics-label">Title:</span> <span class="analytics-value">${discussion.title}</span></div>
+                            <div><span class="analytics-label">Number of participants:</span> <span class="analytics-value">${discussion.participant_count}</span></div>
+                            <div><span class="analytics-label">Poll result:</span> <span class="analytics-value">${discussion.poll_result}</span></div>
+                            <div><span class="analytics-label">Number of comments:</span> <span class="analytics-value">${discussion.comment_count}</span></div>
+                        `;
+                        discussionsList.appendChild(discussionItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching discussions data:', error);
+                });
+        });
+
+        // script for user drop down menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+                
+            // Toggle dropdown menu on click
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                const isVisible = dropdownMenu.style.display === 'block';
+                dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                console.log('Dropdown menu visibility:', dropdownMenu.style.display); // Debugging
+            });
+
+            // Close dropdown menu if clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
