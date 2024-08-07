@@ -1,3 +1,4 @@
+<!-- This will let logged in user view a discussion topic -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,7 +142,8 @@
         
         <a href="privacy_policy.php">Privacy Policy</a>
     </footer>
-    
+
+    <!-- This will handle the js for comment and vote funtion -->
     <script src="../js/discussion.js"></script>
     <script src="../js/comment.js"></script>
     <script>
@@ -191,7 +193,7 @@
         }
     });
     </script>
-
+<!-- Dropdown menu -->
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             const dropdownToggle = document.querySelector('.dropdown-toggle');

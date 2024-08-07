@@ -1,3 +1,5 @@
+<!-- This will fetch each comments for each discussion topics -->
+
 <?php
 include('../includes/db.php');
 
@@ -25,6 +27,7 @@ if ($commentsResult->num_rows > 0):
         $downvote_count = $comment['downvote_count'];
 ?>
     <div class="comment">
+        <!-- Actions inside each comment -->
         <p><strong><?php echo $username; ?>:</strong> <?php echo nl2br($comment_text); ?></p>
         <div class="comment-actions">
             <button class="reply-button" data-comment-id="<?php echo $comment_id; ?>">Reply</button>
