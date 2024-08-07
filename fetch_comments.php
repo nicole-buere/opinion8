@@ -1,4 +1,3 @@
-<!-- This will fetch each comments for each discussion topics -->
 
 <?php
 include('../includes/db.php');

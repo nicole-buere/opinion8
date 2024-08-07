@@ -1,4 +1,3 @@
-<!-- This will let logged in user vote in a comment -->
 <?php
 include('../includes/db.php');
 

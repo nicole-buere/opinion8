@@ -1,4 +1,3 @@
-<!-- This will let logged in user vote in a discussion topic -->
 <?php
 session_start();
 include('../includes/db.php');
