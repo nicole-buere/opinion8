@@ -14,15 +14,7 @@
         <!-- home button -->
         <a href="../views/admin_homepage.php" class="button primary">Home</a>
         <!-- search bar -->
-        <div class="search-container">
-            <div class="search-bar-wrapper">
-                <img src="../assets/search icon.png" alt="search icon" class="search-icon">
-                <input type="text" placeholder="What are you looking for?" class="search-bar">
-                <a href="search.php" class="search-link">
-                    <img src="../assets/advance search filter.png" alt="filter-icon" class="filter-icon">
-                </a>
-            </div>
-        </div>
+
         <!-- dropdown menu in profile button  -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" title="User Menu">
